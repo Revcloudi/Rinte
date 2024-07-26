@@ -1,4 +1,4 @@
-package com.liev.clouds;
+package com.liev.clouds.webtab;
 
 import com.liev.clouds.tabpane.TopTabPane;
 import javafx.application.Application;
@@ -6,11 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("工具分析软件");
+        primaryStage.setTitle("Revcloudi的小工具");
 
         // 创建顶层TabPane
         TopTabPane topTabPane = new TopTabPane();

@@ -1,13 +1,10 @@
-package com.liev.clouds.webtab;
+package com.liev.clouds.webtab.framework;
 
 import com.liev.clouds.exp.AjReportExp;
 import javafx.scene.control.*;
 import com.liev.clouds.interfaces.TabContent;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
-
-import javax.swing.plaf.ListUI;
-import java.util.List;
 
 public class AJreportTab implements TabContent {
 
@@ -20,7 +17,8 @@ public class AJreportTab implements TabContent {
         HBox topContainer = new HBox(10);
         topContainer.setPadding(new Insets(10));
 
-        TextField inUrl = new TextField("http://127.0.0.1");
+        TextField inUrl = new TextField("http://127.0.0.1:9095");
+        inUrl.setStyle("-fx-font-size: 14px;");
         inUrl.setPrefWidth(600);
         inUrl.setPrefHeight(30);
 
@@ -52,41 +50,55 @@ public class AJreportTab implements TabContent {
 
         Label postCode = new Label("POST请求数据:");
         TextArea postTxt = new TextArea();
+        postCode.setStyle("-fx-font-size: 16px;");
+        postTxt.setStyle("-fx-font-size: 16px;");
         postTxt.setPrefHeight(200);
         postTxt.setPrefWidth(1175);
 
-        Label responseLabel = new Label("结果：");
-        TextArea responseArea = new TextArea();
-        responseArea.setPrefHeight(400);
-        responseArea.setPrefWidth(1175);
+        Label outComeLabel = new Label("结果：");
+        TextArea outComeArea = new TextArea();
+        outComeLabel.setStyle("-fx-font-size: 16px;");
+        outComeArea.setStyle("-fx-font-size: 16px;");
+        outComeArea.setPrefHeight(400);
+        outComeArea.setPrefWidth(575);
 
-        centerContainer.add(postCode,0,0);
-        centerContainer.add(postTxt,0,1);
-        centerContainer.add(responseLabel,0,2);
-        centerContainer.add(responseArea,0,3);
+        Label responseLabel = new Label("响应:");
+        TextArea responseArea = new TextArea();
+        responseLabel.setStyle("-fx-font-size: 16px;");
+        responseArea.setStyle("-fx-font-size: 16px;");
+        responseArea.setPrefHeight(400);
+        responseArea.setPrefWidth(575);
+        responseArea.setWrapText(true);
+
+
+        centerContainer.add(postCode,0,0,2,1);
+        centerContainer.add(postTxt,0,1,2,1);
+        centerContainer.add(outComeLabel,0,2);
+        centerContainer.add(outComeArea,0,3);
+        centerContainer.add(responseLabel,1,2);
+        centerContainer.add(responseArea,1,3);
 
         borderPane.setTop(topContainer);
         borderPane.setCenter(centerContainer);
         stackPane.getChildren().add(borderPane);
 
         button.setOnAction(event -> {
-            //TODO 检测逻辑
             String url = inUrl.getText();
             String postData = checkBoxPost.isSelected() ? postTxt.getText() : null;
             String selectedValue = comboBox.getSelectionModel().getSelectedItem();
 
             if(selectedValue.equals("All")){
                 AjReportExp ajReportExp = new AjReportExp();
-                ajReportExp.processDetection(url, postData, postTxt, responseArea);
+                ajReportExp.processDetection(url, postData, postTxt, outComeArea, responseArea);
             }else if(selectedValue.equals("CVE-2024-5352(任意命令执行)")){
                 AjReportExp ajReportExp = new AjReportExp();
-                ajReportExp.processRce(url, postData, postTxt, responseArea);
+                ajReportExp.processRce(url, postData, postTxt, outComeArea, responseArea);
+                //TODO 检测逻辑
+
             }
 
 
         });
-
-
         return stackPane;
     }
 }

@@ -1,6 +1,6 @@
 package com.liev.clouds.tabpane.sub;
 
-import com.liev.clouds.webtab.ShiroCasLog4j2Tab;
+import com.liev.clouds.webtab.middleware.ShiroCasLog4j2Tab;
 import com.liev.clouds.webtab.state.WaitTab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

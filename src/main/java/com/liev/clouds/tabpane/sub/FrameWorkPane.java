@@ -1,7 +1,6 @@
 package com.liev.clouds.tabpane.sub;
 
-import com.liev.clouds.webtab.AJreportTab;
-import com.liev.clouds.webtab.state.IngTab;
+import com.liev.clouds.webtab.framework.AJreportTab;
 import com.liev.clouds.webtab.state.WaitTab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
