@@ -89,7 +89,9 @@ public class AJreportTab implements TabContent {
         button.setOnAction(event -> {
             String url = inUrl.getText();
             List<String> postData = checkBoxPost.isSelected() ? Arrays.asList(postTxt.getText()) : null;
+            //获取所选择的检测漏洞
             String selectedValue = comboBox.getSelectionModel().getSelectedItem();
+            //获取POST请求体
             String jsPostData = checkBoxPost.isSelected() ? postTxt.getText() : null;
 
             if(selectedValue.equals("All")){

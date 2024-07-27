@@ -16,10 +16,8 @@ import java.util.regex.Pattern;
  */
 public class AjReportExp {
 
+    //TODO 一键检测
     public void processDetection(String url, List<String> postData, TextArea postTxt, TextArea outComeArea, TextArea responseArea) {
-        // 这里可以添加实际的检测逻辑，当前仅为示例逻辑
-
-        //TODO 调用所有方法
 
 
     }
@@ -37,6 +35,7 @@ public class AjReportExp {
         boolean exp = false;
 
         try {
+
             // 设置请求头
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json;charset=UTF-8");
@@ -53,7 +52,7 @@ public class AjReportExp {
                     // 获取响应体
                     String formattedResponseBody = response.getResponseBody();
 
-                    // 将数据都显示在显示框中
+                    // 将POST请求体显示在框中
                     String formattedPostData = DataUtils.formatJson(postData);
                     postTxt.setText(formattedPostData);
 
@@ -66,7 +65,7 @@ public class AjReportExp {
                     // 将响应头和响应体输出到responseArea
                     responseArea.setText(response.getResponseCode() + "\n" + headersStringBuilder.toString() + "\n" + formattedResponseBody);
 
-                    // 在结果区域显示响应体
+                    // 在结果区域显示
                     outComeArea.setText("自定义POST请求发送完毕!");
 
                     // 检查响应状态码是否为302，并处理重定向
@@ -238,7 +237,7 @@ public class AjReportExp {
     }
 
 
-
+    //TODO sql信息泄露，待考察
     public boolean processSql(String url, List<String> postDataList, TextArea postTxt, TextArea outComeArea, TextArea responseArea){
         boolean exp = false;
 
