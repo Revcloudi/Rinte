@@ -1,6 +1,7 @@
 package com.liev.clouds.utils;
 
 
+import com.liev.clouds.dao.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -22,7 +23,6 @@ public class HttpUtils {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost post = new HttpPost(urlString);
             post.setEntity(new StringEntity(postData, "UTF-8"));
-            post.setHeader("Content-Type", "application/json");
 
             // 设置自定义请求头
             if (headers != null) {

@@ -6,6 +6,9 @@ import com.liev.clouds.interfaces.TabContent;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class AJreportTab implements TabContent {
 
     @Override
@@ -33,7 +36,7 @@ public class AJreportTab implements TabContent {
         checkBoxPost.setSelected(false);
 
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("All","CVE-2024-5352(任意命令执行)","NULL");
+        comboBox.getItems().addAll("All","CVE-2024-5352(任意命令执行)","CVE-2024-5350(SQL信息泄露)","CVE-2024-5356(任意命令执行)");
         comboBox.setPrefWidth(200);
         comboBox.setPrefHeight(28);
         comboBox.getSelectionModel().selectFirst();
@@ -54,6 +57,7 @@ public class AJreportTab implements TabContent {
         postTxt.setStyle("-fx-font-size: 16px;");
         postTxt.setPrefHeight(200);
         postTxt.setPrefWidth(1175);
+        postTxt.setWrapText(true);
 
         Label outComeLabel = new Label("结果：");
         TextArea outComeArea = new TextArea();
@@ -84,8 +88,9 @@ public class AJreportTab implements TabContent {
 
         button.setOnAction(event -> {
             String url = inUrl.getText();
-            String postData = checkBoxPost.isSelected() ? postTxt.getText() : null;
+            List<String> postData = checkBoxPost.isSelected() ? Arrays.asList(postTxt.getText()) : null;
             String selectedValue = comboBox.getSelectionModel().getSelectedItem();
+            String jsPostData = checkBoxPost.isSelected() ? postTxt.getText() : null;
 
             if(selectedValue.equals("All")){
                 AjReportExp ajReportExp = new AjReportExp();
@@ -93,8 +98,12 @@ public class AJreportTab implements TabContent {
             }else if(selectedValue.equals("CVE-2024-5352(任意命令执行)")){
                 AjReportExp ajReportExp = new AjReportExp();
                 ajReportExp.processRce(url, postData, postTxt, outComeArea, responseArea);
-                //TODO 检测逻辑
-
+            } else if (selectedValue.equals("CVE-2024-5350(SQL信息泄露)")) {
+                AjReportExp ajReportExp = new AjReportExp();
+                ajReportExp.processSql(url,postData,postTxt,outComeArea,responseArea);
+            } else if (selectedValue.equals("CVE-2024-5356(任意命令执行)")) {
+                AjReportExp ajReportExp = new AjReportExp();
+                ajReportExp.processJsExp(url,jsPostData,postTxt,outComeArea,responseArea);
             }
 
 
