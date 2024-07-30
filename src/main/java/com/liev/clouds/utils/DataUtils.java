@@ -3,6 +3,12 @@ package com.liev.clouds.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.liev.clouds.dao.HttpResponse;
+import javafx.scene.control.TextArea;
+
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Revcloud
@@ -26,5 +32,49 @@ public class DataUtils {
             return null;
         }
     }
+
+
+    /**
+     * 检测漏洞是否存在
+     * @param responseBody 响应体
+     * @param regex  正则检测
+     * @param expectedValue  需要检测的字符
+     * @return
+     */
+    public static boolean checkVulnerability(String responseBody, String regex, String expectedValue) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(responseBody);
+        if (matcher.find()) {
+            String dataValue = matcher.group(1);
+            return dataValue.equals(expectedValue);
+        }
+        return false;
+    }
+
+    /**
+     * AjReport 将响应进行封装
+     * @param postTxt
+     * @param responseArea
+     * @param outComeArea
+     * @param postData
+     * @param response
+     * @param resultMessage
+     */
+    public static void displayResponse(TextArea postTxt, TextArea responseArea, TextArea outComeArea, String postData, HttpResponse response, String resultMessage) {
+        String formattedPostData = formatJson(postData);
+        postTxt.setText(formattedPostData);
+
+        // Format and display response headers and body
+        Map<String, String> responseHeaders = response.getResponseHeaders();
+        StringBuilder headersStringBuilder = new StringBuilder();
+        for (Map.Entry<String, String> entry : responseHeaders.entrySet()) {
+            headersStringBuilder.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        }
+        responseArea.setText(response.getResponseCode() + "\n" + headersStringBuilder.toString() + "\n" + response.getResponseBody());
+
+        // Display result message
+        outComeArea.setText(resultMessage);
+    }
+
 
 }

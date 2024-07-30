@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+
+<!-- 定义一个 StackPane 作为根节点 -->
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webtab.framework.AJreportController">
+    <!-- 使用 BorderPane 布局管理器 -->
+    <BorderPane>
+        <!-- 顶部输入区 -->
+        <top>
+            <!-- 使用 HBox 布局，设置子节点之间的间距为 10 -->
+            <HBox spacing="10">
+                <!-- 设置 HBox 的内边距，四边均为 10 -->
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <!-- URL 输入框，预填充默认值 -->
+                <TextField fx:id="inUrl" text="http://127.0.0.1:9095" style="-fx-font-size: 14px;" prefWidth="600" prefHeight="30"/>
+                <!-- 检测按钮，设置按钮背景颜色和字体颜色 -->
+                <Button fx:id="button" text="检测" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" minHeight="28" minWidth="50"/>
+                <!-- 自定义POST请求的复选框 -->
+                <CheckBox fx:id="checkBoxPost" text="自定义POST" prefWidth="100" prefHeight="28" selected="false"/>
+                <!-- 漏洞类型选择框 -->
+                <ComboBox fx:id="comboBox" prefWidth="200" prefHeight="28">
+                    <items>
+                        <!-- 初始化选择框的选项列表 -->
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="All"/>
+                            <String fx:value="CVE-2024-5352(任意命令执行)"/>
+                            <String fx:value="CVE-2024-5350(SQL信息泄露)"/>
+                            <String fx:value="CVE-2024-5356(任意命令执行)"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+        </top>
+
+        <!-- 中部显示区 -->
+        <center>
+            <!-- 使用 GridPane 布局，设置行列间距为 10 -->
+            <GridPane hgap="10" vgap="10">
+                <!-- 设置 GridPane 的内边距，四边均为 10 -->
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <!-- POST请求数据标签 -->
+                <Label text="POST请求数据:" style="-fx-font-size: 16px;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+                <!-- POST请求数据输入框 -->
+                <TextArea fx:id="postTxt" style="-fx-font-size: 16px;" prefHeight="200" prefWidth="1175" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
+                <!-- 结果标签 -->
+                <Label text="结果：" style="-fx-font-size: 16px;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <!-- 结果显示区域 -->
+                <TextArea fx:id="outComeArea" style="-fx-font-size: 16px;" prefHeight="400" prefWidth="575" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <!-- 响应标签 -->
+                <Label text="响应:" style="-fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <!-- 响应显示区域 -->
+                <TextArea fx:id="responseArea" style="-fx-font-size: 16px;" prefHeight="400" prefWidth="575" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </center>
+    </BorderPane>
+</StackPane>
