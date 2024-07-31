@@ -11,7 +11,7 @@ import java.util.*;
 public class AjReportExp {
 
     /**
-     *
+     * 依次检测所有漏洞，会从高危到低危进行检测，检测到漏洞就返回
      * @param params
      */
     public void processDetection(AjReportDetectionParams params) {

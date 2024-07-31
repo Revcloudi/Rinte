@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webtab.top.ProxySettingsController">
+    <VBox spacing="10" StackPane.alignment="CENTER">
+        <!-- 第一行：两个复选框 -->
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <CheckBox fx:id="enableCheckBox" text="启用" prefWidth="100" prefHeight="28"/>
+            <CheckBox fx:id="disableCheckBox" text="禁用" prefWidth="100" prefHeight="28" selected="true"/>
+        </HBox>
+
+        <!-- 第二行：点击下拉菜单 -->
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="代理类型:" style="-fx-font-size: 16px;" prefWidth="100"/>
+            <ComboBox fx:id="proxyTypeComboBox" prefWidth="200" prefHeight="28">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="HTTP"/>
+                        <String fx:value="HTTPS"/>
+                        <String fx:value="SOCKS"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+
+        <!-- 使用GridPane来对齐标签和输入框 -->
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- 第三行：IP地址输入框 -->
+            <Label text="IP地址:" style="-fx-font-size: 16px;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="ipAddressField" promptText="输入IP地址" style="-fx-font-size: 14px;" prefWidth="600" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="*" style="-fx-font-size: 16px; -fx-text-fill: red;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+
+            <!-- 第四行：端口输入框 -->
+            <Label text="端口:" style="-fx-font-size: 16px;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="portField" promptText="输入端口" style="-fx-font-size: 14px;" prefWidth="600" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Label text="*" style="-fx-font-size: 16px; -fx-text-fill: red;" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+            <!-- 第五行：用户名输入框 -->
+            <Label text="用户名:" style="-fx-font-size: 16px;" prefWidth="100" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="usernameField" promptText="输入用户名" style="-fx-font-size: 14px;" prefWidth="600" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <!-- 第六行：密码输入框 -->
+            <Label text="密码:" style="-fx-font-size: 16px;" prefWidth="100" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <PasswordField fx:id="passwordField" promptText="输入密码" style="-fx-font-size: 14px;" prefWidth="600" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        </GridPane>
+
+        <!-- 最后一行：取消和保存按钮 -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="cancelButton" text="取消" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" minHeight="28" minWidth="50"/>
+            <Button fx:id="saveButton" text="保存" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" minHeight="28" minWidth="50"/>
+        </HBox>
+
+        <!-- 响应框 -->
+        <TextArea fx:id="responseArea" prefHeight="100" prefWidth="800" wrapText="true" editable="false" />
+    </VBox>
+</StackPane>

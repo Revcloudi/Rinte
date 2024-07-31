@@ -3,12 +3,17 @@ package com.liev.clouds.tabpane;
 import com.liev.clouds.tabpane.sub.EncryptionDecryptionPane;
 import com.liev.clouds.tabpane.sub.FrameWorkPane;
 import com.liev.clouds.tabpane.sub.MiddleWarePane;
+import com.liev.clouds.tabpane.sub.SettingPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 public class TopTabPane {
 
     private TabPane tabPane;
+
 
     public TopTabPane() {
         tabPane = new TabPane();
@@ -28,8 +33,12 @@ public class TopTabPane {
         EncryptionDecryptionPane encryptionDecryptionPane = new EncryptionDecryptionPane();
         tab3.setContent(encryptionDecryptionPane.getTabPane());
 
+        Tab settingTab = new Tab("设置");
+        SettingPane settingPane = new SettingPane();
+        settingTab.setContent(settingPane.getTabPane());
+
         // 将所有顶层Tab添加到顶层TabPane中
-        tabPane.getTabs().addAll(tab1, tab2, tab3);
+        tabPane.getTabs().addAll(tab1, tab2, tab3, settingTab);
 
         // 设置TabPane样式
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
