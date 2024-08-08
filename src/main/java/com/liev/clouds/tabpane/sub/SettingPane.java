@@ -1,5 +1,6 @@
 package com.liev.clouds.tabpane.sub;
 
+import com.liev.clouds.config.TabConfigUI;
 import com.liev.clouds.webtab.top.ProxySettingsController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -23,6 +24,8 @@ public class SettingPane {
 
         // 创建每个子Tab及其对应的独立GUI页面
         Tab proxyTab = new Tab("代理", proxySettingsController.getContent());
+
+        TabConfigUI.setTopLevelTabStyle(proxyTab);
 
         // 添加子Tab到子TabPane
         tabPane.getTabs().addAll(proxyTab);

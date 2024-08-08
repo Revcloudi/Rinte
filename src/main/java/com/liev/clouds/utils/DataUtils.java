@@ -15,6 +15,12 @@ import java.util.regex.Pattern;
  * @since 2024/7/26 17:14
  */
 public class DataUtils {
+
+    /**
+     * 格式化JSON
+     * @param json
+     * @return
+     */
     public static String formatJson(String json){
         try {
             JSONObject jsonObj = JSON.parseObject(json);

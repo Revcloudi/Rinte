@@ -1,18 +1,16 @@
 package com.liev.clouds.tabpane;
-
+import com.liev.clouds.config.TabConfigUI;
 import com.liev.clouds.tabpane.sub.EncryptionDecryptionPane;
 import com.liev.clouds.tabpane.sub.FrameWorkPane;
 import com.liev.clouds.tabpane.sub.MiddleWarePane;
 import com.liev.clouds.tabpane.sub.SettingPane;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
 
 public class TopTabPane {
 
-    private TabPane tabPane;
+    private final TabPane tabPane;
 
 
     public TopTabPane() {
@@ -20,20 +18,24 @@ public class TopTabPane {
 
         // 创建第一个Tab和第二排TabPane
         Tab tab1 = new Tab("框架通用漏洞检测");
+        TabConfigUI.setTopLevelTabStyle(tab1);
         FrameWorkPane frameWorkPane = new FrameWorkPane();
         tab1.setContent(frameWorkPane.getTabPane());
 
         // 创建第二个Tab和第二排TabPane
         Tab tab2 = new Tab("中间件漏洞检测");
+        TabConfigUI.setTopLevelTabStyle(tab2);
         MiddleWarePane middleWareTab = new MiddleWarePane();
         tab2.setContent(middleWareTab.getTabPane());
 
         // 继续为其他顶层Tab创建对应的第二排TabPane...
         Tab tab3 = new Tab("加解密工具集");
+        TabConfigUI.setTopLevelTabStyle(tab3);
         EncryptionDecryptionPane encryptionDecryptionPane = new EncryptionDecryptionPane();
         tab3.setContent(encryptionDecryptionPane.getTabPane());
 
         Tab settingTab = new Tab("设置");
+        TabConfigUI.setTopLevelTabStyle(settingTab);
         SettingPane settingPane = new SettingPane();
         settingTab.setContent(settingPane.getTabPane());
 

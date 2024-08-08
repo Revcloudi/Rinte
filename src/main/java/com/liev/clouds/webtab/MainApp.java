@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+
 public class MainApp extends Application {
 
     @Override
@@ -16,8 +17,11 @@ public class MainApp extends Application {
         // 创建顶层TabPane
         TopTabPane topTabPane = new TopTabPane();
 
+        VBox root = new VBox(topTabPane.getTabPane());
+
         // 设置场景并显示
-        Scene scene = new Scene(new VBox(topTabPane.getTabPane()), 1200, 800);
+        Scene scene = new Scene(root, 1200, 800);
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }

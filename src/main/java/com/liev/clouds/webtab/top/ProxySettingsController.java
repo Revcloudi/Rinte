@@ -1,5 +1,7 @@
 package com.liev.clouds.webtab.top;
 
+import com.liev.clouds.config.ProxyConfig;
+import com.liev.clouds.utils.HttpUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -12,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+ * 代理设置控制器类，处理代理设置界面的交互逻辑。
  * @author Revcloud
  * @since 2024/7/31 9:50
  */
@@ -47,8 +50,12 @@ public class ProxySettingsController {
     @FXML
     private TextArea responseArea;
 
+    private ProxyConfig proxyConfig;
+
     @FXML
     public void initialize() {
+        proxyConfig = new ProxyConfig();
+
         // 确保两个复选框只能一个被选中
         enableCheckBox.setOnAction(e -> {
             if (enableCheckBox.isSelected()) {
@@ -68,8 +75,10 @@ public class ProxySettingsController {
         saveButton.setOnAction(e -> handleSave());
     }
 
+    /**
+     * 处理取消操作，清除所有设置并重置表单。
+     */
     private void handleCancel() {
-        // 取消按钮的处理逻辑
         responseArea.clear();
         ipAddressField.clear();
         portField.clear();
@@ -79,16 +88,15 @@ public class ProxySettingsController {
         disableCheckBox.setSelected(true);
 
         // 清除代理设置
-        System.clearProperty("http.proxyHost");
-        System.clearProperty("http.proxyPort");
-        System.clearProperty("https.proxyHost");
-        System.clearProperty("https.proxyPort");
-        System.clearProperty("http.proxyUser");
-        System.clearProperty("http.proxyPassword");
+        proxyConfig.clearProxy();
+        HttpUtils.setProxyConfig(null);
 
         responseArea.appendText("已取消操作，表单已重置，代理设置已清除。\n");
     }
 
+    /**
+     * 处理保存操作，应用代理设置。
+     */
     private void handleSave() {
         responseArea.clear();
         if (enableCheckBox.isSelected() && "HTTP".equals(proxyTypeComboBox.getValue())) {
@@ -100,44 +108,29 @@ public class ProxySettingsController {
                 return;
             }
 
-            System.setProperty("http.proxyHost", ip);
-            System.setProperty("http.proxyPort", port);
-            System.setProperty("https.proxyHost", ip);
-            System.setProperty("https.proxyPort", port);
-
-            if (usernameField.getText() != null && !usernameField.getText().isEmpty()) {
-                System.setProperty("http.proxyUser", usernameField.getText());
-            } else {
-                System.clearProperty("http.proxyUser");
-            }
-
-            if (passwordField.getText() != null && !passwordField.getText().isEmpty()) {
-                System.setProperty("http.proxyPassword", passwordField.getText());
-            } else {
-                System.clearProperty("http.proxyPassword");
-            }
+            proxyConfig.setProxy(ip, Integer.parseInt(port), proxyTypeComboBox.getValue(), usernameField.getText(), passwordField.getText());
+            HttpUtils.setProxyConfig(proxyConfig);
 
             responseArea.appendText("代理设置成功：\n");
-            responseArea.appendText("http.proxyHost: " + System.getProperty("http.proxyHost") + "\n");
-            responseArea.appendText("http.proxyPort: " + System.getProperty("http.proxyPort") + "\n");
-            responseArea.appendText("https.proxyHost: " + System.getProperty("https.proxyHost") + "\n");
-            responseArea.appendText("https.proxyPort: " + System.getProperty("https.proxyPort") + "\n");
+            responseArea.appendText("proxyHost: " + proxyConfig.getProxyHost() + "\n");
+            responseArea.appendText("proxyPort: " + proxyConfig.getProxyPort() + "\n");
+            responseArea.appendText("proxyType: " + proxyConfig.getProxyType() + "\n");
 
             verifyProxySettings();
         } else {
             responseArea.appendText("未启用代理或代理类型非HTTP。\n");
-            // 取消代理设置
-            System.clearProperty("http.proxyHost");
-            System.clearProperty("http.proxyPort");
-            System.clearProperty("https.proxyHost");
-            System.clearProperty("https.proxyPort");
+            proxyConfig.clearProxy();
+            HttpUtils.setProxyConfig(null);
             responseArea.appendText("已取消代理设置。\n");
         }
     }
 
+    /**
+     * 验证代理设置是否生效。
+     */
     private void verifyProxySettings() {
         try {
-            URL url = new URL("http://www.lievclouds.com");
+            URL url = new URL("http://www.example.com");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -158,13 +151,18 @@ public class ProxySettingsController {
         }
     }
 
-    public StackPane getContent(){
+    /**
+     * 加载并返回代理设置的界面。
+     *
+     * @return StackPane 包含代理设置界面
+     */
+    public StackPane getContent() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProxySettings.fxml"));
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return new StackPane(); // Return an empty pane if loading fails
+            return new StackPane(); // 加载失败时返回一个空的 StackPane
         }
     }
 }

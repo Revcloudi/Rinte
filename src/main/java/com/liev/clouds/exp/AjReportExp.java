@@ -43,6 +43,7 @@ public class AjReportExp {
         boolean exp = false;
 
         try {
+            //特定请求头
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json;charset=UTF-8");
 
