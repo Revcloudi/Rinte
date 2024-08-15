@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- 定义一个 StackPane 作为根节点 -->
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.TestController">
+
+    <VBox>
+        <AnchorPane VBox.vgrow="ALWAYS">
+            <Button layoutX="760.0" layoutY="14.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="90.0" style="-fx-font-size: 16px;" text="Button" />
+            <CheckBox layoutX="631.0" layoutY="14.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" style="-fx-font-size: 16px;" text="CheckBox" />
+            <TextField layoutX="10.0" layoutY="14.0" prefHeight="34.0" prefWidth="613.0" />
+            <Label layoutX="10.0" layoutY="55.0" prefHeight="15.0" prefWidth="613.0" style="-fx-font-size: 16px;" text="请求体" />
+            <TextArea layoutX="10.0" layoutY="84.0" prefHeight="191.0" prefWidth="1175.0" />
+            <Label layoutX="12.0" layoutY="284.0" prefHeight="15.0" prefWidth="575.0" style="-fx-font-size: 16px;" text="结果" />
+            <TextArea layoutX="12.0" layoutY="315.0" prefHeight="393.0" prefWidth="575" />
+            <Label layoutX="599.0" layoutY="284.0" prefHeight="15.0" prefWidth="575.0" style="-fx-font-size: 16px;" text="响应" />
+            <TextArea fx:id="response" layoutX="605.0" layoutY="315.0" prefHeight="393.0" prefWidth="575.0" />
+        </AnchorPane>
+    </VBox>
+
+</StackPane>

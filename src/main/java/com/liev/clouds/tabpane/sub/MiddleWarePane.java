@@ -1,7 +1,8 @@
 package com.liev.clouds.tabpane.sub;
 
-import com.liev.clouds.webtab.middleware.ShiroCasLog4j2Tab;
-import com.liev.clouds.webtab.state.WaitTab;
+import com.liev.clouds.config.TabConfigUI;
+import com.liev.clouds.webcontroller.middleware.ShiroCasLog4j2Tab;
+import com.liev.clouds.webcontroller.state.WaitTab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -11,7 +12,7 @@ import javafx.scene.control.TabPane;
  */
 public class MiddleWarePane {
 
-    private TabPane tabPane;
+    private final TabPane tabPane;
 
     public MiddleWarePane(){
         tabPane = new TabPane();
@@ -20,6 +21,9 @@ public class MiddleWarePane {
         Tab subTab1 = new Tab("Shiro", new ShiroCasLog4j2Tab().getContent());
         Tab subTab2 = new Tab("FastJson", new WaitTab().getContent());
         Tab subTab3 = new Tab("Log4j", new WaitTab().getContent());
+        TabConfigUI.setTopLevelTabStyle(subTab1);
+        TabConfigUI.setTopLevelTabStyle(subTab2);
+        TabConfigUI.setTopLevelTabStyle(subTab3);
 
         // 添加子Tab到子TabPane
         tabPane.getTabs().addAll(subTab1, subTab2, subTab3);

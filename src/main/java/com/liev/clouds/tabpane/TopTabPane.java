@@ -1,9 +1,6 @@
 package com.liev.clouds.tabpane;
 import com.liev.clouds.config.TabConfigUI;
-import com.liev.clouds.tabpane.sub.EncryptionDecryptionPane;
-import com.liev.clouds.tabpane.sub.FrameWorkPane;
-import com.liev.clouds.tabpane.sub.MiddleWarePane;
-import com.liev.clouds.tabpane.sub.SettingPane;
+import com.liev.clouds.tabpane.sub.*;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -29,10 +26,15 @@ public class TopTabPane {
         tab2.setContent(middleWareTab.getTabPane());
 
         // 继续为其他顶层Tab创建对应的第二排TabPane...
-        Tab tab3 = new Tab("加解密工具集");
+        Tab tab3 = new Tab("编码/解码");
         TabConfigUI.setTopLevelTabStyle(tab3);
         EncryptionDecryptionPane encryptionDecryptionPane = new EncryptionDecryptionPane();
         tab3.setContent(encryptionDecryptionPane.getTabPane());
+
+        Tab tab4 = new Tab("Shell生成");
+        TabConfigUI.setTopLevelTabStyle(tab4);
+        ShellGeneratePane shellGeneratePane = new ShellGeneratePane();
+        tab4.setContent(shellGeneratePane.getTabPane());
 
         Tab settingTab = new Tab("设置");
         TabConfigUI.setTopLevelTabStyle(settingTab);
@@ -40,7 +42,7 @@ public class TopTabPane {
         settingTab.setContent(settingPane.getTabPane());
 
         // 将所有顶层Tab添加到顶层TabPane中
-        tabPane.getTabs().addAll(tab1, tab2, tab3, settingTab);
+        tabPane.getTabs().addAll(tab1, tab2, tab3, tab4, settingTab);
 
         // 设置TabPane样式
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

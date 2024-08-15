@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.shell.MemoryShellController">
+
+
+
+</StackPane>

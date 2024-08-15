@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.EncryptionDecryptionController">
+      <VBox>
+            <HBox spacing="10">
+               <!-- 设置 HBox 的内边距，四边均为 10 -->
+               <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+               </padding>
+                <ComboBox fx:id="codeType" prefHeight="30" prefWidth="200" style="-fx-font-size: 14px;">
+                    <items>
+                        <!-- 初始化选择框的选项列表 -->
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="UTF-8" />
+                            <String fx:value="GBK" />
+                            <String fx:value="GB2312" />
+                            <String fx:value="BIG5" />
+                            <String fx:value="ISO-8859-1" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+               <ComboBox fx:id="encodingType" prefHeight="30" prefWidth="250" style="-fx-font-size: 14px;">
+                  <items>
+                     <!-- 初始化选择框的选项列表 -->
+                     <FXCollections fx:factory="observableArrayList">
+                         <String fx:value="请选择转码方式" />
+                         <String fx:value="Base64编码" />
+                         <String fx:value="Unicode编码" />
+                         <String fx:value="URL特殊字符编码" />
+                         <String fx:value="URL全编码" />
+                         <String fx:value="字符串反转" />
+                         <String fx:value="Ascii码" />
+                         <String fx:value="转大写" />
+                         <String fx:value="转小写" />
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+
+                <ComboBox fx:id="decodingType" prefHeight="30" prefWidth="250" style="-fx-font-size: 14px;">
+                    <items>
+                        <!-- 初始化选择框的选项列表 -->
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="请选择解码方式" />
+                            <String fx:value="Base64解码" />
+                            <String fx:value="16进制Hex解码" />
+                            <String fx:value="URL解码" />
+                            <String fx:value="Unicode解码" />
+                            <String fx:value="HTML实体解码" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <ComboBox fx:id="encryptionType" prefHeight="30" prefWidth="250" style="-fx-font-size: 14px;">
+                    <items>
+                        <!-- 初始化选择框的选项列表 -->
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="请选择哈希加密" />
+                            <String fx:value="MD5(16位)" />
+                            <String fx:value="MD5(32位)" />
+                            <String fx:value="SHA1" />
+                            <String fx:value="SHA1(Base64)" />
+                            <String fx:value="SHA256" />
+                            <String fx:value="SHA256(Base64)" />
+                            <String fx:value="SHA384" />
+                            <String fx:value="SHA384(Base64)" />
+                            <String fx:value="SHA512" />
+                            <String fx:value="SHA512(Base64)" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+          <!-- 中部显示区 -->
+              <!-- 使用 GridPane 布局，设置行列间距为 10 -->
+              <GridPane hgap="10" vgap="10">
+                  <!-- 设置 GridPane 的内边距，四边均为 10 -->
+                  <padding>
+                      <Insets bottom="10" left="10" right="10" top="10" />
+                  </padding>
+                  <!-- POST请求数据标签 -->
+                  <Label style="-fx-font-size: 16px;" text="输入数据:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                  <!-- POST请求数据输入框 -->
+                  <TextArea fx:id="input" prefHeight="270" prefWidth="1175" style="-fx-font-size: 16px;" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <!-- 结果标签 -->
+                  <Label style="-fx-font-size: 16px;" text="输出数据：" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <!-- 结果显示区域 -->
+                  <TextArea fx:id="output" prefHeight="350" prefWidth="1175" style="-fx-font-size: 16px;" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+              </GridPane>
+      </VBox>
+</StackPane>

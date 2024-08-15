@@ -1,4 +1,4 @@
-package com.liev.clouds.webtab.top;
+package com.liev.clouds.webcontroller.top;
 
 import com.liev.clouds.config.ProxyConfig;
 import com.liev.clouds.utils.HttpUtils;
@@ -54,6 +54,9 @@ public class ProxySettingsController {
 
     @FXML
     public void initialize() {
+
+        proxyTypeComboBox.getSelectionModel().selectFirst();
+
         proxyConfig = new ProxyConfig();
 
         // 确保两个复选框只能一个被选中
@@ -130,7 +133,7 @@ public class ProxySettingsController {
      */
     private void verifyProxySettings() {
         try {
-            URL url = new URL("http://www.example.com");
+            URL url = new URL("https://www.lievclouds.com");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();

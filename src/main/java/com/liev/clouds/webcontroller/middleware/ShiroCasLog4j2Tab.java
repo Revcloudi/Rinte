@@ -1,4 +1,4 @@
-package com.liev.clouds.webtab.middleware;
+package com.liev.clouds.webcontroller.middleware;
 
 import com.liev.clouds.interfaces.TabContent;
 import javafx.geometry.Insets;

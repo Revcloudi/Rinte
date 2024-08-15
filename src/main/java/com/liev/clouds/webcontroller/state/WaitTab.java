@@ -1,4 +1,4 @@
-package com.liev.clouds.webtab.state;
+package com.liev.clouds.webcontroller.state;
 
 import com.liev.clouds.interfaces.TabContent;
 import javafx.scene.control.Label;

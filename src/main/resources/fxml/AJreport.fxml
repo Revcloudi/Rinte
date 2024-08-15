@@ -7,7 +7,7 @@
 <?import java.lang.String?>
 
 <!-- 定义一个 StackPane 作为根节点 -->
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webtab.framework.AJreportController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.AJreportController">
     <!-- 使用 BorderPane 布局管理器 -->
     <BorderPane>
         <!-- 顶部输入区 -->

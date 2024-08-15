@@ -1,4 +1,4 @@
-package com.liev.clouds.webtab.framework;
+package com.liev.clouds.webcontroller.framework;
 
 import com.liev.clouds.dao.AjReportDetectionParams;
 import com.liev.clouds.exp.AjReportExp;
@@ -58,7 +58,7 @@ public class AJreportController {
 
     public StackPane getContent() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AJreportTab.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AJreport.fxml"));
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
