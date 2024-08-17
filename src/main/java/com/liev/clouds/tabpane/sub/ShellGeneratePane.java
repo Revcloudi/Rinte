@@ -2,7 +2,6 @@ package com.liev.clouds.tabpane.sub;
 
 import com.liev.clouds.config.TabConfigUI;
 import com.liev.clouds.webcontroller.shell.MemoryShellController;
-import com.liev.clouds.webcontroller.top.ProxySettingsController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 

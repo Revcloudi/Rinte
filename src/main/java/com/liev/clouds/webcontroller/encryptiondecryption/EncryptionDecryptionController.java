@@ -1,4 +1,4 @@
-package com.liev.clouds.webcontroller.framework;
+package com.liev.clouds.webcontroller.encryptiondecryption;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

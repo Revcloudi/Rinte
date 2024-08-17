@@ -1,7 +1,7 @@
 package com.liev.clouds.tabpane.sub;
 
 import com.liev.clouds.config.TabConfigUI;
-import com.liev.clouds.webcontroller.framework.EncryptionDecryptionController;
+import com.liev.clouds.webcontroller.encryptiondecryption.EncryptionDecryptionController;
 import com.liev.clouds.webcontroller.state.WaitTab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

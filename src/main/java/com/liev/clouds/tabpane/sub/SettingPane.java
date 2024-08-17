@@ -1,7 +1,7 @@
 package com.liev.clouds.tabpane.sub;
 
 import com.liev.clouds.config.TabConfigUI;
-import com.liev.clouds.webcontroller.top.ProxySettingsController;
+import com.liev.clouds.webcontroller.setting.ProxySettingsController;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 

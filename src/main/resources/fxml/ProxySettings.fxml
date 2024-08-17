@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.top.ProxySettingsController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.setting.ProxySettingsController">
     <VBox spacing="10" StackPane.alignment="CENTER">
         <!-- 第一行：两个复选框 -->
         <HBox alignment="CENTER" spacing="10">

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.EncryptionDecryptionController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.encryptiondecryption.EncryptionDecryptionController">
       <VBox>
             <HBox spacing="10">
                <!-- 设置 HBox 的内边距，四边均为 10 -->

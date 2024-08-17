@@ -1,4 +1,4 @@
-package com.liev.clouds.webcontroller.top;
+package com.liev.clouds.webcontroller.setting;
 
 import com.liev.clouds.config.ProxyConfig;
 import com.liev.clouds.utils.HttpUtils;
