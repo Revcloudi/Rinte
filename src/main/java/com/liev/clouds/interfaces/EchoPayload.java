@@ -1,6 +1,6 @@
 package com.liev.clouds.interfaces;
 
-import com.sun.xml.internal.ws.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import javassist.ClassPool;
 import javassist.CtClass;
 

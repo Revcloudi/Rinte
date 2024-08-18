@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainController {
+public class ShiroController {
     @FXML
     public TextArea shellLog;
 
@@ -101,7 +101,7 @@ public class MainController {
         this.initComBoBox();
     }
 
-    public MainController(){
+    public ShiroController(){
 
     }
 
@@ -121,7 +121,7 @@ public class MainController {
         utilizeChain.getSelectionModel().selectFirst();
         echoWay.getSelectionModel().selectFirst();
         shellType.getSelectionModel().selectFirst();
-        ControllersFactory.controllers.put(MainController.class.getSimpleName(), this);
+        ControllersFactory.controllers.put(ShiroController.class.getSimpleName(), this);
 
     }
 
@@ -249,7 +249,7 @@ public class MainController {
     @FXML
     void crackKeyBtn(ActionEvent event) {
         if (this.attackService == null) {
-            this.initAttack();  // 确保 attackService 已初始化
+            this.initAttack();
         }
         if (this.attackService.checkIsShiro()) {
             this.attackService.keysCrack();

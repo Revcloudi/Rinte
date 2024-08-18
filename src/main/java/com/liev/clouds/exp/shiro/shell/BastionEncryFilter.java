@@ -20,7 +20,7 @@ public class BastionEncryFilter implements Filter {
     public HttpServletRequest request = null;
     public HttpServletResponse response = null;
     public String cs = "UTF-8";
-    public String path = "/favicondemo.ico";
+    public String path = "/favicons.ico";
 
     public BastionEncryFilter() {
     }

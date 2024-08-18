@@ -1,6 +1,6 @@
 package com.liev.clouds.payload.shiro;
 
-import com.sun.xml.internal.ws.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public interface FramePayload<T> {
     String sendpayload(Object var1, String var2, String var3) throws Exception;

