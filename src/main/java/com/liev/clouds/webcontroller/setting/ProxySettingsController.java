@@ -1,7 +1,9 @@
 package com.liev.clouds.webcontroller.setting;
 
 import com.liev.clouds.config.ProxyConfig;
+import com.liev.clouds.exp.shiro.AttackService;
 import com.liev.clouds.utils.HttpUtils;
+import com.liev.clouds.payload.shiro.util.HttpUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -92,7 +94,11 @@ public class ProxySettingsController {
 
         // 清除代理设置
         proxyConfig.clearProxy();
+
+
         HttpUtils.setProxyConfig(null);
+        HttpUtil.setProxyConfig(null);
+        AttackService.setProxyConfig(null);
 
         responseArea.appendText("已取消操作，表单已重置，代理设置已清除。\n");
     }
@@ -112,7 +118,11 @@ public class ProxySettingsController {
             }
 
             proxyConfig.setProxy(ip, Integer.parseInt(port), proxyTypeComboBox.getValue(), usernameField.getText(), passwordField.getText());
+
+
             HttpUtils.setProxyConfig(proxyConfig);
+            HttpUtil.setProxyConfig(proxyConfig);
+            AttackService.setProxyConfig(proxyConfig);
 
             responseArea.appendText("代理设置成功：\n");
             responseArea.appendText("proxyHost: " + proxyConfig.getProxyHost() + "\n");
@@ -123,7 +133,12 @@ public class ProxySettingsController {
         } else {
             responseArea.appendText("未启用代理或代理类型非HTTP。\n");
             proxyConfig.clearProxy();
+
+
             HttpUtils.setProxyConfig(null);
+            HttpUtil.setProxyConfig(null);
+            AttackService.setProxyConfig(null);
+
             responseArea.appendText("已取消代理设置。\n");
         }
     }

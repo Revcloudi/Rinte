@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.middleware.ShiroController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.middleware.MainController">
     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0">
         <children>
             <AnchorPane prefHeight="62.0" prefWidth="1202.0">
@@ -16,7 +16,7 @@
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <TextField fx:id="url" layoutX="233.0" layoutY="15.0" prefHeight="32.0" prefWidth="495.0" text="http://127.0.0.1:8080">
+                    <TextField fx:id="url" layoutX="233.0" layoutY="15.0" prefHeight="32.0" prefWidth="495.0" text="http://localhost:8080/shirodemo_war_exploded/login.jsp">
                         <font>
                             <Font size="16.0" />
                         </font></TextField>
@@ -57,7 +57,7 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextField fx:id="requestHeader" layoutX="207.0" layoutY="14.0" prefHeight="32.0" prefWidth="354.0" text="Cookie">
+                    <TextField fx:id="requestHeader" layoutX="207.0" layoutY="14.0" prefHeight="32.0" prefWidth="354.0">
                         <font>
                             <Font size="16.0" />
                         </font>
@@ -91,7 +91,7 @@
                             <Font size="16.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="specifyKey" layoutX="461.0" layoutY="14.0" prefHeight="32.0" prefWidth="250.0">
+                    <TextField fx:id="specifyKey" text="kPH+bIxk5D2deZiIxcaaaA==" layoutX="461.0" layoutY="14.0" prefHeight="32.0" prefWidth="250.0">
                         <font>
                             <Font size="16.0" />
                         </font>
@@ -106,12 +106,12 @@
                             <Font size="18.0" />
                         </font>
                     </CheckBox>
-                    <Button fx:id="detectingKeys" onAction="#detectingKeys" layoutX="871.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="检测密钥">
+                    <Button fx:id="detectingKeys" onAction="#crackSpcKeyBtn" layoutX="871.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="检测密钥">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="blastingKey" layoutX="1036.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="爆破密钥">
+                    <Button fx:id="blastingKey" onAction="#crackKeyBtn" layoutX="1036.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="爆破密钥">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -134,20 +134,20 @@
                         <items>
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="CommonsBeanUtils1"/>
-                                <String fx:value="CommonsBeanUtils1_183"/>
+                                <String fx:value="CommonsBeanutils1"/>
+                                <String fx:value="CommonsBeanutils1_183"/>
                                 <String fx:value="CommonsCollections2"/>
                                 <String fx:value="CommonsCollections3"/>
                                 <String fx:value="CommonsCollectionsK1"/>
                                 <String fx:value="CommonsCollectionsK2"/>
-                                <String fx:value="CommonsBeanUtilsString"/>
-                                <String fx:value="CommonsBeanUtilsString_183"/>
-                                <String fx:value="CommonsBeanUtilsAttrCompare"/>
-                                <String fx:value="CommonsBeanUtilsAttrCompare_183"/>
-                                <String fx:value="CommonsBeanUtilsPropertySource"/>
-                                <String fx:value="CommonsBeanUtilsPropertySource_183"/>
-                                <String fx:value="CommonsBeanUtilsObjectToStringComparator"/>
-                                <String fx:value="CommonsBeanUtilsObjectToStringComparator_183"/>
+                                <String fx:value="CommonsBeanutilsString"/>
+                                <String fx:value="CommonsBeanutilsString_183"/>
+                                <String fx:value="CommonsBeanutilsAttrCompare"/>
+                                <String fx:value="CommonsBeanutilsAttrCompare_183"/>
+                                <String fx:value="CommonsBeanutilsPropertySource"/>
+                                <String fx:value="CommonsBeanutilsPropertySource_183"/>
+                                <String fx:value="CommonsBeanutilsObjectToStringComparator"/>
+                                <String fx:value="CommonsBeanutilsObjectToStringComparator_183"/>
                             </FXCollections>
                         </items>
                     </ComboBox>
@@ -165,12 +165,12 @@
                             </FXCollections>
                         </items>
                     </ComboBox>
-                    <Button fx:id="detectingUtilizationChain" layoutX="823.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="161.0" text="检测当前利用链">
+                    <Button fx:id="detectingUtilizationChain" onAction="#crackSpcGadgetBtn" layoutX="823.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="161.0" text="检测当前利用链">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="blastingUtilizationChain" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="爆破当前利用链">
+                    <Button fx:id="blastingUtilizationChain" onAction="#crackGadgetBtn" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="爆破当前利用链">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -208,7 +208,7 @@
                                                     <Font size="16.0" />
                                                 </font>
                                             </TextField>
-                                            <Button fx:id="execute" layoutX="1061.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="执行">
+                                            <Button fx:id="execute" onAction="#executeCmdBtn" layoutX="1061.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="执行">
                                                 <font>
                                                     <Font size="18.0" />
                                                 </font>
@@ -270,7 +270,7 @@
                                                     <Font size="16.0" />
                                                 </font>
                                             </TextField>
-                                            <Button fx:id="shellInject" layoutX="1017.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" text="注入">
+                                            <Button fx:id="shellInject" onAction="#injectShellBtn" layoutX="1017.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" text="注入">
                                                 <font>
                                                     <Font size="18.0" />
                                                 </font>
@@ -292,7 +292,7 @@
                                 <children>
                                     <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="63.0" prefWidth="1202.0">
                                         <children>
-                                            <Button fx:id="randomGenerationKey" layoutX="529.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="144.0" text="生成随机Key">
+                                            <Button fx:id="randomGenerationKey" onAction="#keyTxt" layoutX="529.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="144.0" text="生成随机Key">
                                                 <font>
                                                     <Font size="18.0" />
                                                 </font>

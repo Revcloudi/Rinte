@@ -1,7 +1,7 @@
 package com.liev.clouds.tabpane.sub;
 
 import com.liev.clouds.config.TabConfigUI;
-import com.liev.clouds.webcontroller.middleware.ShiroController;
+import com.liev.clouds.webcontroller.middleware.MainController;
 import com.liev.clouds.webcontroller.state.WaitTab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -18,7 +18,7 @@ public class MiddleWarePane {
         tabPane = new TabPane();
 
         // 创建每个子Tab及其对应的独立GUI页面
-        Tab subTab1 = new Tab("Shiro", new ShiroController().getContent());
+        Tab subTab1 = new Tab("Shiro", new MainController().getContent());
         Tab subTab2 = new Tab("FastJson", new WaitTab().getContent());
         Tab subTab3 = new Tab("Log4j", new WaitTab().getContent());
         TabConfigUI.setTopLevelTabStyle(subTab1);
