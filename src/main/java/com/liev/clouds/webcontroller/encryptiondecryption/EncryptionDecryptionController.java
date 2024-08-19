@@ -18,30 +18,30 @@ public class EncryptionDecryptionController {
     public ComboBox codeType;
 
     @FXML
-    public ComboBox decodingType;
+    public ComboBox decodeType;
 
     @FXML
-    public ComboBox encryptionType;
+    public ComboBox hashEncryptionType;
 
     @FXML
-    private ComboBox encodingType;
+    private ComboBox encodedType;
 
     @FXML
-    private TextArea input;
+    private TextArea inputValue;
 
     @FXML
-    private TextArea output;
+    private TextArea outputValue;
 
 
     @FXML
     public void initialize(){
         codeType.getSelectionModel().selectFirst();
 
-        encodingType.getSelectionModel().selectFirst();
+        encodedType.getSelectionModel().selectFirst();
 
-        decodingType.getSelectionModel().selectFirst();
+        decodeType.getSelectionModel().selectFirst();
 
-        encryptionType.getSelectionModel().selectFirst();
+        hashEncryptionType.getSelectionModel().selectFirst();
 
         //TODO 按钮逻辑
     }
