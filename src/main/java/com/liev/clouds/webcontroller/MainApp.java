@@ -12,7 +12,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Revcloudi的小工具");
+        primaryStage.setTitle("Rinte");
 
         // 创建顶层TabPane
         TopTabPane topTabPane = new TopTabPane();

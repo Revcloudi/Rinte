@@ -9,7 +9,7 @@ import javafx.scene.control.Tab;
 public class TabConfigUI {
     // 常量定义，去掉标签边框的样式
     private static final String TAB_STYLE =
-            "-fx-font-size: 14px; " +
+            "-fx-font-size: 16px; " +
                     "-fx-min-height: 30px; " +
                     "-fx-pref-height: 30px; " +
                     "-fx-max-height: 30px; " +

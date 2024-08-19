@@ -19,13 +19,13 @@
                     <Insets top="10" right="10" bottom="10" left="10"/>
                 </padding>
                 <!-- URL 输入框，预填充默认值 -->
-                <TextField fx:id="inUrl" text="http://127.0.0.1:9095" style="-fx-font-size: 16px;" prefWidth="600" prefHeight="30"/>
+                <TextField fx:id="inUrl" text="http://127.0.0.1:9095" style="-fx-font-size: 18px;" prefWidth="600" prefHeight="30"/>
                 <!-- 检测按钮，设置按钮背景颜色和字体颜色 -->
-                <Button fx:id="button" text="检测" style="-fx-background-color: #4CAF50; -fx-text-fill: white;-fx-font-size: 14px;" minHeight="30" minWidth="70"/>
+                <Button fx:id="button" text="检测" style="-fx-background-color: #4CAF50; -fx-text-fill: white;-fx-font-size: 18px;" minHeight="30" minWidth="70"/>
                 <!-- 自定义POST请求的复选框 -->
-                <CheckBox fx:id="checkBoxPost" text="自定义POST" prefWidth="150" style="-fx-font-size: 14px;" prefHeight="30" selected="false"/>
+                <CheckBox fx:id="checkBoxPost" text="自定义POST" prefWidth="150" style="-fx-font-size: 18px;" prefHeight="30" selected="false"/>
                 <!-- 漏洞类型选择框 -->
-                <ComboBox fx:id="comboBox" style="-fx-font-size: 14px;" prefWidth="250" prefHeight="30">
+                <ComboBox fx:id="comboBox" style="-fx-font-size: 18px;" prefWidth="250" prefHeight="30">
                     <items>
                         <!-- 初始化选择框的选项列表 -->
                         <FXCollections fx:factory="observableArrayList">
@@ -47,17 +47,17 @@
                     <Insets top="10" right="10" bottom="10" left="10"/>
                 </padding>
                 <!-- POST请求数据标签 -->
-                <Label text="POST请求数据:" style="-fx-font-size: 16px;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+                <Label text="POST请求数据:" style="-fx-font-size: 18px;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
                 <!-- POST请求数据输入框 -->
-                <TextArea fx:id="postTxt" style="-fx-font-size: 16px;" prefHeight="200" prefWidth="1175" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
+                <TextArea fx:id="postTxt" style="-fx-font-size: 18px;" prefHeight="200" prefWidth="1175" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
                 <!-- 结果标签 -->
-                <Label text="结果：" style="-fx-font-size: 16px;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Label text="结果：" style="-fx-font-size: 18px;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <!-- 结果显示区域 -->
-                <TextArea fx:id="outComeArea" style="-fx-font-size: 16px;" prefHeight="400" prefWidth="575" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextArea fx:id="outComeArea" style="-fx-font-size: 18px;" prefHeight="400" prefWidth="575" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                 <!-- 响应标签 -->
-                <Label text="响应:" style="-fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="响应:" style="-fx-font-size: 18px;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <!-- 响应显示区域 -->
-                <TextArea fx:id="responseArea" style="-fx-font-size: 16px;" prefHeight="400" prefWidth="575" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <TextArea fx:id="responseArea" style="-fx-font-size: 18px;" prefHeight="400" prefWidth="575" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             </GridPane>
         </center>
     </BorderPane>
