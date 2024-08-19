@@ -11,7 +11,7 @@
         <children>
             <AnchorPane prefHeight="62.0" prefWidth="1202.0">
                 <children>
-                    <Button fx:id="check" layoutX="1050.0" layoutY="13.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" text="检测">
+                    <Button fx:id="check" onAction="#check" layoutX="1050.0" layoutY="13.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" text="检测">
                         <font>
                             <Font size="18.0" />
                         </font>

@@ -125,8 +125,24 @@ public class ShiroController {
 
     }
 
+
+    /**
+     * 一键检测漏洞
+     */
+    @FXML
+    void check(){
+        crackKeyBtn(new ActionEvent());
+        crackGadgetBtn(new ActionEvent());
+    }
+
+
+    /**
+     * 内存马注入
+     * @param event
+     */
     @FXML
     void injectShellBtn(ActionEvent event) {
+        //TODO 这里有bug，还没测试完
 
         String memShellType = (String)this.shellType.getValue();
         String shellPass = this.shellPassword.getText();
@@ -139,6 +155,11 @@ public class ShiroController {
 
     }
 
+
+    /**
+     * 命令执行
+     * @param event
+     */
     @FXML
     void executeCmdBtn(ActionEvent event) {
 //        String rememberMe = this.GadgetPayload(gadgetOpt, echoOpt, spcShiroKey);
@@ -155,6 +176,10 @@ public class ShiroController {
 
     }
 
+    /**
+     * 检测当前利用链
+     * @param event
+     */
     @FXML
     void crackSpcGadgetBtn(ActionEvent event) {
         String spcShiroKey = this.specifyKey.getText();
@@ -172,6 +197,9 @@ public class ShiroController {
 
     }
 
+    /**
+     * 发送请求模块
+     */
     public void initAttack() {
         String shiroKeyWordText = this.keyWord.getText();
         String targetAddressText = this.url.getText();
@@ -202,6 +230,10 @@ public class ShiroController {
 
     }
 
+    /**
+     * 爆破当前利用链
+     * @param event
+     */
     @FXML
     void crackGadgetBtn(ActionEvent event) {
         String spcShiroKey = this.specifyKey.getText();
@@ -232,6 +264,10 @@ public class ShiroController {
 
     }
 
+    /**
+     * 检测密钥
+     * @param event
+     */
     @FXML
     void crackSpcKeyBtn(ActionEvent event) {
         this.initAttack();
@@ -246,6 +282,10 @@ public class ShiroController {
 
     }
 
+    /**
+     * 爆破密钥
+     * @param event
+     */
     @FXML
     void crackKeyBtn(ActionEvent event) {
         if (this.attackService == null) {
@@ -256,7 +296,10 @@ public class ShiroController {
         }
     }
 
-
+    /**
+     * 生成随机key
+     * @param actionEvent
+     */
     @FXML
     void keyTxt(ActionEvent actionEvent) {
         KeyGenerator keyGenerator = new KeyGenerator();
