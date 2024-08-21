@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 
 <!-- 定义一个 StackPane 作为根节点 -->
+<?import javafx.scene.text.Font?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.AJreportController">
-    <!-- 使用 BorderPane 布局管理器 -->
-    <BorderPane>
-        <!-- 顶部输入区 -->
-        <top>
-            <!-- 使用 HBox 布局，设置子节点之间的间距为 10 -->
-            <HBox spacing="10">
-                <!-- 设置 HBox 的内边距，四边均为 10 -->
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10"/>
-                </padding>
-                <!-- URL 输入框，预填充默认值 -->
-                <TextField fx:id="inUrl" text="http://127.0.0.1:9095" style="-fx-font-size: 18px;" prefWidth="600" prefHeight="30"/>
-                <!-- 检测按钮，设置按钮背景颜色和字体颜色 -->
-                <Button fx:id="button" text="检测" style="-fx-background-color: #4CAF50; -fx-text-fill: white;-fx-font-size: 18px;" minHeight="30" minWidth="70"/>
-                <!-- 自定义POST请求的复选框 -->
-                <CheckBox fx:id="checkBoxPost" text="自定义POST" prefWidth="150" style="-fx-font-size: 18px;" prefHeight="30" selected="false"/>
-                <!-- 漏洞类型选择框 -->
-                <ComboBox fx:id="comboBox" style="-fx-font-size: 18px;" prefWidth="250" prefHeight="30">
-                    <items>
-                        <!-- 初始化选择框的选项列表 -->
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="All"/>
-                            <String fx:value="CVE-2024-5352(任意命令执行)"/>
-                            <String fx:value="CVE-2024-5350(SQL信息泄露)"/>
-                            <String fx:value="CVE-2024-5356(任意命令执行)"/>
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-            </HBox>
-        </top>
-        <!-- 中部显示区 -->
-        <center>
-            <!-- 使用 GridPane 布局，设置行列间距为 10 -->
-            <GridPane hgap="10" vgap="10">
-                <!-- 设置 GridPane 的内边距，四边均为 10 -->
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10"/>
-                </padding>
-                <!-- POST请求数据标签 -->
-                <Label text="POST请求数据:" style="-fx-font-size: 18px;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
-                <!-- POST请求数据输入框 -->
-                <TextArea fx:id="postTxt" style="-fx-font-size: 18px;" prefHeight="200" prefWidth="1175" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
-                <!-- 结果标签 -->
-                <Label text="结果：" style="-fx-font-size: 18px;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <!-- 结果显示区域 -->
-                <TextArea fx:id="outComeArea" style="-fx-font-size: 18px;" prefHeight="400" prefWidth="575" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                <!-- 响应标签 -->
-                <Label text="响应:" style="-fx-font-size: 18px;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <!-- 响应显示区域 -->
-                <TextArea fx:id="responseArea" style="-fx-font-size: 18px;" prefHeight="400" prefWidth="575" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-            </GridPane>
-        </center>
-    </BorderPane>
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <AnchorPane prefHeight="54.0" prefWidth="1202.0">
+                <children>
+                    <TextField fx:id="inUrl" layoutX="15.0" layoutY="18.0" prefHeight="32.0" prefWidth="599.0" style="-fx-font-size: 14px;"/>
+                    <CheckBox fx:id="checkBoxPost" layoutX="626.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="143.0" text="POST请求">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </CheckBox>
+                    <Button fx:id="button" layoutX="769.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="检测" style="-fx-background-color: #4CAF50; -fx-text-fill: white;">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Button>
+                    <ComboBox fx:id="comboBox" layoutX="895.0" layoutY="18.0" prefHeight="32.0" prefWidth="227.0" style="-fx-font-size: 14px;">
+                        <items>
+                            <!-- 初始化选择框的选项列表 -->
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="All"/>
+                                <String fx:value="CVE-2024-5352(任意命令执行)"/>
+                                <String fx:value="CVE-2024-5350(SQL信息泄露)"/>
+                                <String fx:value="CVE-2024-5356(任意命令执行)"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="271.0" prefWidth="1202.0">
+                <children>
+                    <TextArea fx:id="postTxt" layoutX="14.0" layoutY="31.0" prefHeight="226.0" prefWidth="1178.0" style="-fx-font-size: 14px;"/>
+                    <Label layoutX="14.0" layoutY="2.0" prefHeight="24.0" prefWidth="143.0" text="POST请求数据：">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="403.0" prefWidth="1202.0">
+                <children>
+                    <Label layoutX="14.0" layoutY="-10.0" prefHeight="24.0" prefWidth="143.0" text="结果：">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <TextArea fx:id="outComeArea" layoutX="14.0" layoutY="15.0" prefHeight="378.0" prefWidth="577.0" style="-fx-font-size: 14px;"/>
+                    <Label layoutX="601.0" layoutY="-10.0" prefHeight="24.0" prefWidth="143.0" text="响应：">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <TextArea fx:id="responseArea" layoutX="601.0" layoutY="15.0" prefHeight="378.0" prefWidth="591.0" style="-fx-font-size: 14px;"/>
+                </children>
+            </AnchorPane>
+        </children>
+    </VBox>
 </StackPane>

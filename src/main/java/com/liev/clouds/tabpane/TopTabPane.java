@@ -14,13 +14,13 @@ public class TopTabPane {
         tabPane = new TabPane();
 
         // 创建第一个Tab和第二排TabPane
-        Tab tab1 = new Tab("框架通用漏洞检测");
+        Tab tab1 = new Tab("各类CMS");
         TabConfigUI.setTopLevelTabStyle(tab1);
         FrameWorkPane frameWorkPane = new FrameWorkPane();
         tab1.setContent(frameWorkPane.getTabPane());
 
         // 创建第二个Tab和第二排TabPane
-        Tab tab2 = new Tab("中间件漏洞检测");
+        Tab tab2 = new Tab("Java中间件");
         TabConfigUI.setTopLevelTabStyle(tab2);
         MiddleWarePane middleWareTab = new MiddleWarePane();
         tab2.setContent(middleWareTab.getTabPane());

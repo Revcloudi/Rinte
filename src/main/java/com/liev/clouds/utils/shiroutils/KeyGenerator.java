@@ -6,13 +6,8 @@ import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @ClassName: KeyGenerator
- * @Description: TODO
- * @Author: Summer
- * @Date: 2021/12/3 11:54
- * @Version: v1.0.0
- * @Description:
- **/
+ * 随机生成shiro key
+ */
 public class KeyGenerator {
     public static void main(String[] args) {
       KeyGenerator keyGenerator = new KeyGenerator();

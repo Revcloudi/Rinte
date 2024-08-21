@@ -130,6 +130,12 @@ public class ProxySettingsController {
             responseArea.appendText("proxyType: " + proxyConfig.getProxyType() + "\n");
 
             verifyProxySettings();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("保存成功");
+            alert.setHeaderText(null);
+            alert.setContentText("代理保存成功！");
+            alert.showAndWait();
         } else {
             responseArea.appendText("未启用代理或代理类型非HTTP。\n");
             proxyConfig.clearProxy();
@@ -148,7 +154,7 @@ public class ProxySettingsController {
      */
     private void verifyProxySettings() {
         try {
-            URL url = new URL("https://www.lievclouds.com");
+            URL url = new URL("https://www.baidu.com");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();

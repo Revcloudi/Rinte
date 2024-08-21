@@ -2,23 +2,105 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<!-- 定义一个 StackPane 作为根节点 -->
+<?import javafx.scene.text.Font?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.TestController">
 
-    <VBox>
-        <AnchorPane VBox.vgrow="ALWAYS">
-            <Button layoutX="760.0" layoutY="14.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="90.0" style="-fx-font-size: 16px;" text="Button" />
-            <CheckBox layoutX="631.0" layoutY="14.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" style="-fx-font-size: 16px;" text="CheckBox" />
-            <TextField layoutX="10.0" layoutY="14.0" prefHeight="34.0" prefWidth="613.0" />
-            <Label layoutX="10.0" layoutY="55.0" prefHeight="15.0" prefWidth="613.0" style="-fx-font-size: 16px;" text="请求体" />
-            <TextArea layoutX="10.0" layoutY="84.0" prefHeight="191.0" prefWidth="1175.0" />
-            <Label layoutX="12.0" layoutY="284.0" prefHeight="15.0" prefWidth="575.0" style="-fx-font-size: 16px;" text="结果" />
-            <TextArea layoutX="12.0" layoutY="315.0" prefHeight="393.0" prefWidth="575" />
-            <Label layoutX="599.0" layoutY="284.0" prefHeight="15.0" prefWidth="575.0" style="-fx-font-size: 16px;" text="响应" />
-            <TextArea fx:id="response" layoutX="605.0" layoutY="315.0" prefHeight="393.0" prefWidth="575.0" />
-        </AnchorPane>
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <AnchorPane prefHeight="759.0" prefWidth="1202.0">
+                <children>
+                    <RadioButton fx:id="disableCheckBox" layoutX="77.0" layoutY="24.0" selected="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="无代理">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </RadioButton>
+                    <RadioButton fx:id="automaticProxyConfiguration" layoutX="77.0" layoutY="69.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="自动检测代理配置">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </RadioButton>
+                    <CheckBox fx:id="automaticallyURL" layoutX="113.0" layoutY="117.0" selected="true" mnemonicParsing="false" prefHeight="32.0" prefWidth="178.0" text="自动代理配置URL：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </CheckBox>
+                    <TextField fx:id="proxyUrl" layoutX="291.0" layoutY="117.0" prefHeight="32.0" prefWidth="839.0" style="-fx-font-size: 16px;">
+                    </TextField>
+                    <Button fx:id="cleanPassword" onAction="#cleanPassword" layoutX="113.0" layoutY="161.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="清除密码">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Button>
+                    <RadioButton fx:id="enableCheckBox" layoutX="77.0" layoutY="208.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="178.0" text="手动代理配置">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </RadioButton>
+                    <RadioButton fx:id="httpCheckBox" selected="true" layoutX="113.0" layoutY="253.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="81.0" text="HTTP">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </RadioButton>
+                    <RadioButton fx:id="socksCheckBox" layoutX="209.0" layoutY="253.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" text="SOCKS">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </RadioButton>
+                    <Label layoutX="113.0" layoutY="294.0" prefHeight="32.0" prefWidth="81.0" text="主机名：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="113.0" layoutY="338.0" prefHeight="32.0" prefWidth="81.0" text="端口号：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="ipAddressField" text="127.0.0.1" layoutX="291.0" layoutY="294.0" prefHeight="32.0" prefWidth="839.0" style="-fx-font-size: 16px;"/>
+                    <TextField fx:id="portField" text="8080" layoutX="291.0" layoutY="338.0" prefHeight="32.0" prefWidth="839.0" style="-fx-font-size: 16px;"/>
+                    <Label layoutX="113.0" layoutY="383.0" prefHeight="32.0" prefWidth="178.0" text="不为以下项使用代理：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="noProxy" layoutX="291.0" layoutY="383.0" prefHeight="32.0" prefWidth="839.0" style="-fx-font-size: 16px;"/>
+                    <CheckBox fx:id="proxyAuthentication" layoutX="113.0" layoutY="435.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="代理身份验证：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </CheckBox>
+                    <Label layoutX="113.0" layoutY="482.0" prefHeight="32.0" prefWidth="81.0" text="登录：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="113.0" layoutY="524.0" prefHeight="32.0" prefWidth="81.0" text="密码：">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="usernameField" layoutX="291.0" layoutY="482.0" prefHeight="32.0" prefWidth="839.0" style="-fx-font-size: 16px;"/>
+                    <TextField fx:id="passwordField" layoutX="291.0" layoutY="524.0" prefHeight="32.0" prefWidth="839.0" style="-fx-font-size: 16px;"/>
+                    <Button fx:id="checkConnection" onAction="#checkConnection" layoutX="77.0" layoutY="600.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="检测连接">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Button>
+                    <Button fx:id="cancelButton" onAction="#cancelButton" layoutX="958.0" layoutY="664.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="81.0" text="重置">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Button>
+                    <Button fx:id="saveButton" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" onAction="#saveButton" layoutX="1049.0" layoutY="664.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="81.0" text="保存">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Button>
+                </children>
+            </AnchorPane>
+        </children>
     </VBox>
+
 
 </StackPane>

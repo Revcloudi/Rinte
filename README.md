@@ -1,4 +1,4 @@
-![R](./letter-r.png)
+![R](./letter-r.png#pic_center)
 
 
 
@@ -12,6 +12,7 @@ A tool that penetration testers love very much, providing various functions to d
 
 - Exploit the vulnerability in Ajreport version 1.4.1
 - Integrated [Shiro Attack2](https://github.com/SummerSec/ShiroAttack2) module to detect Shiro vulnerabilities. Special thanks to SummerSec master
+- Improve proxy settings and recommend using Burpsuite to obtain full traffic
 - ······
 
 [![Stargazers over time](https://starchart.cc/Naereen/badges.svg)](https://starchart.cc/Naereen/badges)
