@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ShiroController {
     @FXML
@@ -27,9 +29,6 @@ public class ShiroController {
 
     @FXML
     private ComboBox<String> requestMethod;
-
-    @FXML
-    private Button check;
 
     @FXML
     private TextField requestHeader;
@@ -47,31 +46,16 @@ public class ShiroController {
     private CheckBox encryption;
 
     @FXML
-    private Button detectingKeys;
-
-    @FXML
-    private Button blastingKey;
-
-    @FXML
     public ComboBox<String> utilizeChain;
 
     @FXML
     public ComboBox<String> echoWay;
 
     @FXML
-    private Button detectingUtilizationChain;
-
-    @FXML
-    private Button blastingUtilizationChain;
-
-    @FXML
     public TextArea log;
 
     @FXML
     private TextField command;
-
-    @FXML
-    private Button execute;
 
     @FXML
     public TextArea executionResults;
@@ -84,12 +68,6 @@ public class ShiroController {
 
     @FXML
     private TextField shellPassword;
-
-    @FXML
-    private Button shellInject;
-
-    @FXML
-    private Button randomGenerationKey;
 
     @FXML
     private TextArea keyLog;
@@ -283,7 +261,7 @@ public class ShiroController {
     }
 
     /**
-     * 爆破密钥
+     * 爆破密钥 实现多线程爆破，线程数为10
      * @param event
      */
     @FXML
@@ -292,7 +270,19 @@ public class ShiroController {
             this.initAttack();
         }
         if (this.attackService.checkIsShiro()) {
-            this.attackService.keysCrack();
+            log.appendText(Utils.log("多线程爆破中.....当前线程数为10"));
+            // 创建一个固定大小为10的线程池
+            ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+            // 提交10个任务给线程池
+            for (int i = 0; i < 10; i++) {
+                executorService.submit(() -> {
+                    this.attackService.keysCrack();
+                });
+            }
+
+            // 关闭线程池，不再接受新任务
+            executorService.shutdown();
         }
     }
 

@@ -1,5 +1,7 @@
 package com.liev.clouds.exp.code;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Base64;
@@ -74,5 +76,16 @@ public class Decode {
         return buffer.toString();
     }
 
+    /**
+     * HTML实体解码
+     * @param str
+     * @return
+     */
+    public static String decodeHtmlEntities(String str) {
+        if (str == null) {
+            return null;
+        }
+        return StringEscapeUtils.unescapeHtml4(str);
+    }
 
 }

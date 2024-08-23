@@ -47,15 +47,14 @@
                             </FXCollections>
                         </items>
                     </ComboBox>
-                    <ComboBox fx:id="encodedType"  layoutX="673.0" layoutY="14.0" prefHeight="36.0" prefWidth="251.0" style="-fx-font-size: 18px;">
+                    <ComboBox fx:id="encodedType" layoutX="673.0" layoutY="14.0" prefHeight="36.0" prefWidth="251.0" style="-fx-font-size: 18px;">
                         <items>
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="请选择转码方式" />
                                 <String fx:value="Base64编码" />
                                 <String fx:value="Unicode编码" />
-                                <String fx:value="URL特殊字符编码" />
-                                <String fx:value="URL全编码" />
+                                <String fx:value="URL编码" />
                                 <String fx:value="字符串反转" />
                                 <String fx:value="Ascii码" />
                                 <String fx:value="转大写" />
@@ -63,7 +62,7 @@
                             </FXCollections>
                         </items>
                     </ComboBox>
-                    <ComboBox fx:id="decodeType"  layoutX="931.0" layoutY="14.0" prefHeight="36.0" prefWidth="251.0" style="-fx-font-size: 18px;">
+                    <ComboBox fx:id="decodeType" layoutX="931.0" layoutY="14.0" prefHeight="36.0" prefWidth="251.0" style="-fx-font-size: 18px;">
                         <items>
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
@@ -99,6 +98,4 @@
             </AnchorPane>
         </children>
     </VBox>
-
-
 </StackPane>

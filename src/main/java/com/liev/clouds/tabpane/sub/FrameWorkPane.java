@@ -3,6 +3,7 @@ package com.liev.clouds.tabpane.sub;
 import com.liev.clouds.config.TabConfigUI;
 import com.liev.clouds.webcontroller.TestController;
 import com.liev.clouds.webcontroller.framework.AJreportController;
+import com.liev.clouds.webcontroller.framework.RuoYiController;
 import com.liev.clouds.webcontroller.state.WaitTab;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -23,7 +24,7 @@ public class FrameWorkPane {
         TabConfigUI.setTopLevelTabStyle(subTab1);
         Tab subTab2 = new Tab("Nacos", new TestController().getContent());
         TabConfigUI.setTopLevelTabStyle(subTab2);
-        Tab subTab3 = new Tab("RuoYi", new WaitTab().getContent());
+        Tab subTab3 = new Tab("RuoYi", new RuoYiController().getContent());
         TabConfigUI.setTopLevelTabStyle(subTab3);
         // 添加子Tab到子TabPane
         tabPane.getTabs().addAll(subTab1, subTab2, subTab3);

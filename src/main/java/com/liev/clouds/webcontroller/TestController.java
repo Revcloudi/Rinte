@@ -12,8 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.*;
 
 /**
  * @author Revcloud
@@ -126,25 +125,48 @@ public class TestController {
     public void cleanPassword(ActionEvent actionEvent) {
     }
 
+
+    /**
+     * 测试代理连通性
+     * @param actionEvent
+     * @return
+     */
     @FXML
     public boolean checkConnection(ActionEvent actionEvent) {
         boolean check = false;
-        try{
+        try {
+            // 设置代理
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ipAddressField.getText(), Integer.parseInt(portField.getText())));
+
+            // 设置代理身份验证（仅在用户名和密码不为null时）
+            if (usernameField.getText() != null && passwordField.getText() != null) {
+                Authenticator authenticator = new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        if (getRequestorType() == RequestorType.PROXY) {
+                            return new PasswordAuthentication(usernameField.getText(), passwordField.getText().toCharArray());
+                        }
+                        return null;
+                    }
+                };
+                Authenticator.setDefault(authenticator);
+            }
+
             URL url = new URL("https://www.baidu.com");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
             connection.setRequestMethod("GET");
             connection.connect();
 
             int responseCode = connection.getResponseCode();
 
-            if(responseCode == 200){
+            if (responseCode == 200) {
                 ProxyLogger.connect_success();
                 check = true;
-            }else{
+            } else {
                 ProxyLogger.error();
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             ProxyLogger.error_out(e);
         }
 
