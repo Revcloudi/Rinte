@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Font?>
-<?import javafx.collections.FXCollections?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.RuoYiController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.framework.RuoYiController">
     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <AnchorPane prefHeight="69.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="url" text="http://127.0.0.1:80" layoutX="10.0" layoutY="19.0" prefHeight="32.0" prefWidth="612.0" style="-fx-font-size: 16px;"/>
-                    <Button id="check" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" layoutX="640.0" layoutY="17.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" text="检测">
+                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:80" />
+                    <Button id="check" layoutX="640.0" layoutY="17.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -23,13 +21,13 @@
                         <items>
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="All"/>
-                                <String fx:value="RuoYi 小于 4.6.2 Shiro反序列化"/>
-                                <String fx:value="RuoYi 小于 4.6.2 SQL注入"/>
-                                <String fx:value="RuoYi 等于 4.7.1 SSTI模板注入"/>
-                                <String fx:value="RuoYi 等于 4.7.2 定时任务RCE"/>
-                                <String fx:value="RuoYi 小于 4.7.5 SQL注入"/>
-                                <String fx:value="RuoYi 等于 4.7.8 任意文件下载"/>
+                                <String fx:value="All" />
+                                <String fx:value="RuoYi 小于 4.6.2 Shiro反序列化" />
+                                <String fx:value="RuoYi 小于 4.6.2 SQL注入" />
+                                <String fx:value="RuoYi 等于 4.7.1 SSTI模板注入" />
+                                <String fx:value="RuoYi 等于 4.7.2 定时任务RCE" />
+                                <String fx:value="RuoYi 小于 4.7.5 SQL注入" />
+                                <String fx:value="RuoYi 等于 4.7.8 任意文件下载" />
                             </FXCollections>
                        </items>
                     </ComboBox>
@@ -37,7 +35,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="70.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="requestHeader" style="-fx-font-size: 16px;" layoutX="240.0" layoutY="15.0" prefHeight="32.0" prefWidth="180.0" />
+                    <TextField fx:id="requestHeader" layoutX="240.0" layoutY="15.0" prefHeight="32.0" prefWidth="180.0" style="-fx-font-size: 16px;" />
                     <Label layoutX="168.0" layoutY="13.0" prefHeight="36.0" prefWidth="72.0" text="请求头：">
                         <font>
                             <Font size="18.0" />
@@ -48,7 +46,7 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextField fx:id="requestBody" style="-fx-font-size: 16px;" layoutX="509.0" layoutY="15.0" prefHeight="32.0" prefWidth="679.0" />
+                    <TextField fx:id="requestBody" layoutX="509.0" layoutY="15.0" prefHeight="32.0" prefWidth="679.0" style="-fx-font-size: 16px;" />
                     <Label layoutX="14.0" layoutY="13.0" prefHeight="36.0" prefWidth="131.0" text="自定义请求头">
                         <font>
                             <Font size="18.0" />
@@ -68,8 +66,8 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextArea fx:id="log" style="-fx-font-size: 16px;" layoutX="14.0" layoutY="46.0" prefHeight="552.0" prefWidth="570.0" />
-                    <TextArea fx:id="responseBody" style="-fx-font-size: 16px;" layoutX="601.0" layoutY="46.0" prefHeight="552.0" prefWidth="586.0" />
+                    <TextArea fx:id="log" layoutX="14.0" layoutY="46.0" prefHeight="552.0" prefWidth="570.0" style="-fx-font-size: 16px;" />
+                    <TextArea fx:id="responseBody" layoutX="601.0" layoutY="46.0" prefHeight="552.0" prefWidth="586.0" style="-fx-font-size: 16px;" />
                 </children>
             </AnchorPane>
         </children>

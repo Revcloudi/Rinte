@@ -14,27 +14,27 @@ public class TopTabPane {
         tabPane = new TabPane();
 
         // 创建第一个Tab和第二排TabPane
-        Tab tab1 = new Tab("各类CMS");
-        TabConfigUI.setTopLevelTabStyle(tab1);
+        Tab cmsTab = new Tab("各类CMS");
+        TabConfigUI.setTopLevelTabStyle(cmsTab);
         FrameWorkPane frameWorkPane = new FrameWorkPane();
-        tab1.setContent(frameWorkPane.getTabPane());
+        cmsTab.setContent(frameWorkPane.getTabPane());
 
         // 创建第二个Tab和第二排TabPane
-        Tab tab2 = new Tab("Java中间件");
-        TabConfigUI.setTopLevelTabStyle(tab2);
+        Tab javaMiddlewareTab = new Tab("Java中间件");
+        TabConfigUI.setTopLevelTabStyle(javaMiddlewareTab);
         MiddleWarePane middleWareTab = new MiddleWarePane();
-        tab2.setContent(middleWareTab.getTabPane());
+        javaMiddlewareTab.setContent(middleWareTab.getTabPane());
 
         // 继续为其他顶层Tab创建对应的第二排TabPane...
-        Tab tab3 = new Tab("编码/解码");
-        TabConfigUI.setTopLevelTabStyle(tab3);
+        Tab decodeEncodedTab = new Tab("编码/解码");
+        TabConfigUI.setTopLevelTabStyle(decodeEncodedTab);
         EncryptionDecryptionPane encryptionDecryptionPane = new EncryptionDecryptionPane();
-        tab3.setContent(encryptionDecryptionPane.getTabPane());
+        decodeEncodedTab.setContent(encryptionDecryptionPane.getTabPane());
 
-        Tab tab4 = new Tab("Shell生成");
-        TabConfigUI.setTopLevelTabStyle(tab4);
+        Tab shellCreateTab = new Tab("Shell生成");
+        TabConfigUI.setTopLevelTabStyle(shellCreateTab);
         ShellGeneratePane shellGeneratePane = new ShellGeneratePane();
-        tab4.setContent(shellGeneratePane.getTabPane());
+        shellCreateTab.setContent(shellGeneratePane.getTabPane());
 
         Tab settingTab = new Tab("设置");
         TabConfigUI.setTopLevelTabStyle(settingTab);
@@ -42,7 +42,7 @@ public class TopTabPane {
         settingTab.setContent(settingPane.getTabPane());
 
         // 将所有顶层Tab添加到顶层TabPane中
-        tabPane.getTabs().addAll(tab1, tab2, tab3, tab4, settingTab);
+        tabPane.getTabs().addAll(cmsTab, javaMiddlewareTab, decodeEncodedTab, shellCreateTab, settingTab);
 
         // 设置TabPane样式
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

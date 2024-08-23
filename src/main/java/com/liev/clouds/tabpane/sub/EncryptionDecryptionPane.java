@@ -21,15 +21,15 @@ public class EncryptionDecryptionPane {
         tabPane = new TabPane();
 
         // 创建每个子Tab及其对应的独立GUI页面
-        Tab subTab1 = new Tab("文本编码/解码", new EncryptionDecryptionController().getContent());
-        TabConfigUI.setTopLevelTabStyle(subTab1);
-        Tab subTab2 = new Tab("文件编码/解码", new WaitTab().getContent());
-        TabConfigUI.setTopLevelTabStyle(subTab2);
-        Tab subTab3 = new Tab("文本格式化", new WaitTab().getContent());
-        TabConfigUI.setTopLevelTabStyle(subTab3);
+        Tab textDecodeEncoded = new Tab("文本编码/解码", new EncryptionDecryptionController().getContent());
+        TabConfigUI.setTopLevelTabStyle(textDecodeEncoded);
+        Tab fileDecodeEncoded = new Tab("文件编码/解码", new WaitTab().getContent());
+        TabConfigUI.setTopLevelTabStyle(fileDecodeEncoded);
+        Tab textFormatting = new Tab("文本格式化", new WaitTab().getContent());
+        TabConfigUI.setTopLevelTabStyle(textFormatting);
 
         // 添加子Tab到子TabPane
-        tabPane.getTabs().addAll(subTab1, subTab2, subTab3);
+        tabPane.getTabs().addAll(textDecodeEncoded, fileDecodeEncoded, textFormatting);
 
         // 设置TabPane样式
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

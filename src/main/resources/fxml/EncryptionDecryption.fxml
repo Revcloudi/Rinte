@@ -84,12 +84,12 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextArea fx:id="inputValue" layoutX="12.0" layoutY="36.0" prefHeight="290.0" prefWidth="1179.0" >
+                    <TextArea fx:id="inputValue" layoutX="12.0" layoutY="36.0" prefHeight="290.0" prefWidth="1179.0" wrapText="true">
                         <font>
                             <Font size="16.0" />
                         </font>
                     </TextArea>
-                    <TextArea fx:id="outputValue" layoutX="13.0" layoutY="332.0" prefHeight="322.0" prefWidth="1179.0" >
+                    <TextArea fx:id="outputValue" layoutX="13.0" layoutY="332.0" prefHeight="322.0" prefWidth="1179.0" wrapText="true">
                         <font>
                             <Font size="16.0" />
                         </font>

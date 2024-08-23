@@ -2,191 +2,227 @@ package com.liev.clouds.webcontroller.setting;
 
 import com.liev.clouds.config.ProxyConfig;
 import com.liev.clouds.exp.shiro.AttackService;
-import com.liev.clouds.utils.HttpUtils;
+import com.liev.clouds.logs.proxylog.ProxyLogger;
 import com.liev.clouds.payload.shiro.util.HttpUtil;
+import com.liev.clouds.utils.HttpUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.*;
 
 /**
- * 代理设置控制器类，处理代理设置界面的交互逻辑。
  * @author Revcloud
- * @since 2024/7/31 9:50
+ * @since 2024/8/13 19:44
  */
 public class ProxySettingsController {
 
     @FXML
-    private CheckBox enableCheckBox;
+    public RadioButton disableCheckBox;
 
     @FXML
-    private CheckBox disableCheckBox;
+    public RadioButton automaticProxyConfiguration;
 
     @FXML
-    private ComboBox<String> proxyTypeComboBox;
+    public CheckBox automaticallyURL;
 
     @FXML
-    private TextField ipAddressField;
+    public TextField proxyUrl;
 
     @FXML
-    private TextField portField;
+    public Button cleanPassword;
 
     @FXML
-    private TextField usernameField;
+    public RadioButton enableCheckBox;
 
     @FXML
-    private PasswordField passwordField;
+    public RadioButton httpCheckBox;
 
     @FXML
-    private Button cancelButton;
+    public RadioButton socksCheckBox;
 
     @FXML
-    private Button saveButton;
+    public TextField ipAddressField;
 
     @FXML
-    private TextArea responseArea;
+    public TextField portField;
+
+    @FXML
+    public TextField noProxy;
+
+    @FXML
+    public CheckBox proxyAuthentication;
+
+    @FXML
+    public TextField usernameField;
+
+    @FXML
+    public TextField passwordField;
+
+    @FXML
+    public Button checkConnection;
+
+    @FXML
+    public Button cancelButton;
+
+    @FXML
+    public Button saveButton;
 
     private ProxyConfig proxyConfig;
 
+    public StackPane getContent() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProxySetting.fxml"));
+            return loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new StackPane();
+        }
+    }
+
     @FXML
-    public void initialize() {
-
-        proxyTypeComboBox.getSelectionModel().selectFirst();
-
+    public void initialize(){
         proxyConfig = new ProxyConfig();
 
-        // 确保两个复选框只能一个被选中
-        enableCheckBox.setOnAction(e -> {
-            if (enableCheckBox.isSelected()) {
-                disableCheckBox.setSelected(false);
-            }
-        });
-
-        disableCheckBox.setOnAction(e -> {
-            if (disableCheckBox.isSelected()) {
+        disableCheckBox.setOnAction(event -> {
+            if(disableCheckBox.isSelected()){
+                automaticProxyConfiguration.setSelected(false);
                 enableCheckBox.setSelected(false);
             }
         });
 
-        // 设置取消按钮的点击事件处理逻辑
-        cancelButton.setOnAction(e -> handleCancel());
-        // 设置保存按钮的点击事件处理逻辑
-        saveButton.setOnAction(e -> handleSave());
+        automaticProxyConfiguration.setOnAction(event -> {
+            if (automaticProxyConfiguration.isSelected()){
+                disableCheckBox.setSelected(false);
+                enableCheckBox.setSelected(false);
+            }
+        });
+
+        enableCheckBox.setOnAction(event -> {
+            if (enableCheckBox.isSelected()){
+                disableCheckBox.setSelected(false);
+                automaticProxyConfiguration.setSelected(false);
+            }
+        });
+
+        httpCheckBox.setOnAction(event -> {
+            if (httpCheckBox.isSelected()){
+                socksCheckBox.setSelected(false);
+            }
+        });
+
+        socksCheckBox.setOnAction(event -> {
+            if (socksCheckBox.isSelected()){
+                httpCheckBox.setSelected(false);
+            }
+        });
     }
 
+    @FXML
+    public void cleanPassword(ActionEvent actionEvent) {
+    }
+
+
     /**
-     * 处理取消操作，清除所有设置并重置表单。
+     * 测试代理连通性
+     * @param actionEvent
+     * @return
      */
-    private void handleCancel() {
-        responseArea.clear();
+    @FXML
+    public boolean checkConnection(ActionEvent actionEvent) {
+        boolean check = false;
+        try {
+            // 设置代理
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ipAddressField.getText(), Integer.parseInt(portField.getText())));
+
+            // 设置代理身份验证（仅在用户名和密码不为null时）
+            if (usernameField.getText() != null && passwordField.getText() != null) {
+                Authenticator authenticator = new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        if (getRequestorType() == RequestorType.PROXY) {
+                            return new PasswordAuthentication(usernameField.getText(), passwordField.getText().toCharArray());
+                        }
+                        return null;
+                    }
+                };
+                Authenticator.setDefault(authenticator);
+            }
+
+            URL url = new URL("https://www.baidu.com");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == 200) {
+                ProxyLogger.connect_success();
+                check = true;
+            } else {
+                ProxyLogger.error();
+            }
+
+        } catch (Exception e) {
+            ProxyLogger.error_out(e);
+        }
+
+        return check;
+    }
+
+    @FXML
+    public void cancelButton(ActionEvent actionEvent) {
+        proxyUrl.clear();
         ipAddressField.clear();
         portField.clear();
+        noProxy.clear();
         usernameField.clear();
         passwordField.clear();
-        enableCheckBox.setSelected(false);
+
+        httpCheckBox.setSelected(true);
         disableCheckBox.setSelected(true);
 
-        // 清除代理设置
         proxyConfig.clearProxy();
-
 
         HttpUtils.setProxyConfig(null);
         HttpUtil.setProxyConfig(null);
         AttackService.setProxyConfig(null);
 
-        responseArea.appendText("已取消操作，表单已重置，代理设置已清除。\n");
+        ProxyLogger.proxy_clear();
     }
 
     /**
-     * 处理保存操作，应用代理设置。
+     * 保存代理配置
+     * @param actionEvent
      */
-    private void handleSave() {
-        responseArea.clear();
-        if (enableCheckBox.isSelected() && "HTTP".equals(proxyTypeComboBox.getValue())) {
+    @FXML
+    public void saveButton(ActionEvent actionEvent) {
+        if (enableCheckBox.isSelected() && httpCheckBox.isSelected()){
             String ip = ipAddressField.getText();
             String port = portField.getText();
-
-            if (ip == null || ip.isEmpty() || port == null || port.isEmpty()) {
-                responseArea.appendText("IP地址或端口不能为空！\n");
+            if (ip == null || ip.isEmpty() || port == null || port.isEmpty()){
+                ProxyLogger.error_null();
                 return;
             }
 
-            proxyConfig.setProxy(ip, Integer.parseInt(port), proxyTypeComboBox.getValue(), usernameField.getText(), passwordField.getText());
-
+            proxyConfig.setProxy(ip, Integer.parseInt(port), "HTTP", usernameField.getText(), passwordField.getText());
 
             HttpUtils.setProxyConfig(proxyConfig);
             HttpUtil.setProxyConfig(proxyConfig);
             AttackService.setProxyConfig(proxyConfig);
 
-            responseArea.appendText("代理设置成功：\n");
-            responseArea.appendText("proxyHost: " + proxyConfig.getProxyHost() + "\n");
-            responseArea.appendText("proxyPort: " + proxyConfig.getProxyPort() + "\n");
-            responseArea.appendText("proxyType: " + proxyConfig.getProxyType() + "\n");
+            ProxyLogger.success();
+        }else if(automaticProxyConfiguration.isSelected()){
+            String url = automaticallyURL.getText();
+            //TODO url代理直接连接逻辑
 
-            verifyProxySettings();
+        }else if(enableCheckBox.isSelected() && socksCheckBox.isSelected()){
+            //TODO SOCKS代理连接逻辑待增加
+        }else {
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("保存成功");
-            alert.setHeaderText(null);
-            alert.setContentText("代理保存成功！");
-            alert.showAndWait();
-        } else {
-            responseArea.appendText("未启用代理或代理类型非HTTP。\n");
-            proxyConfig.clearProxy();
-
-
-            HttpUtils.setProxyConfig(null);
-            HttpUtil.setProxyConfig(null);
-            AttackService.setProxyConfig(null);
-
-            responseArea.appendText("已取消代理设置。\n");
-        }
-    }
-
-    /**
-     * 验证代理设置是否生效。
-     */
-    private void verifyProxySettings() {
-        try {
-            URL url = new URL("https://www.baidu.com");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-
-            int responseCode = connection.getResponseCode();
-            responseArea.appendText("验证请求的响应代码：" + responseCode + "\n");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuilder content = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
-            responseArea.appendText("验证请求的内容：\n" + content.toString().substring(0, Math.min(content.length(), 200)) + "\n");
-        } catch (Exception e) {
-            responseArea.appendText("验证代理设置时出错：" + e.getMessage() + "\n");
-        }
-    }
-
-    /**
-     * 加载并返回代理设置的界面。
-     *
-     * @return StackPane 包含代理设置界面
-     */
-    public StackPane getContent() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProxySettings.fxml"));
-            return loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new StackPane(); // 加载失败时返回一个空的 StackPane
         }
     }
 }

@@ -36,7 +36,7 @@ public class ProxyLogger {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("错误");
         alert.setHeaderText(null);
-        alert.setContentText("代理连接错误！");
+        alert.setContentText("代理连接错误或者端口未开放！");
         alert.showAndWait();
     }
 

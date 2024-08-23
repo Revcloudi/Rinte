@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.lang.String?>
+<?import javafx.scene.text.*?>
 
 <!-- 定义一个 StackPane 作为根节点 -->
-<?import javafx.scene.text.Font?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.AJreportController">
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.framework.AJreportController">
     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <AnchorPane prefHeight="54.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="inUrl" text="http://127.0.0.1:9095" layoutX="15.0" layoutY="18.0" prefHeight="32.0" prefWidth="599.0" style="-fx-font-size: 16px;"/>
+                    <TextField fx:id="inUrl" layoutX="15.0" layoutY="18.0" prefHeight="32.0" prefWidth="599.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:9095" />
                     <CheckBox fx:id="checkBoxPost" layoutX="626.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="143.0" text="POST请求">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </CheckBox>
-                    <Button fx:id="button" layoutX="769.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="检测" style="-fx-background-color: #4CAF50; -fx-text-fill: white;">
+                    <Button fx:id="button" layoutX="769.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <ComboBox fx:id="comboBox" layoutX="895.0" layoutY="18.0" prefHeight="32.0" prefWidth="227.0" style="-fx-font-size: 16px;">
+                    <ComboBox fx:id="comboBox" layoutX="895.0" layoutY="18.0" prefHeight="32.0" prefWidth="296.0" style="-fx-font-size: 16px;">
                         <items>
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="All"/>
-                                <String fx:value="CVE-2024-5352(任意命令执行)"/>
-                                <String fx:value="CVE-2024-5350(SQL信息泄露)"/>
-                                <String fx:value="CVE-2024-5356(任意命令执行)"/>
+                                <String fx:value="All" />
+                                <String fx:value="CVE-2024-5352(任意命令执行)" />
+                                <String fx:value="CVE-2024-5350(SQL信息泄露)" />
+                                <String fx:value="CVE-2024-5356(任意命令执行)" />
                             </FXCollections>
                         </items>
                     </ComboBox>
@@ -39,7 +39,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="271.0" prefWidth="1202.0">
                 <children>
-                    <TextArea fx:id="postTxt" layoutX="14.0" layoutY="31.0" prefHeight="226.0" prefWidth="1178.0" style="-fx-font-size: 16px;"/>
+                    <TextArea fx:id="postTxt" layoutX="14.0" layoutY="31.0" prefHeight="226.0" prefWidth="1178.0" style="-fx-font-size: 16px;" />
                     <Label layoutX="14.0" layoutY="2.0" prefHeight="24.0" prefWidth="143.0" text="POST请求数据：">
                         <font>
                             <Font size="18.0" />
@@ -54,13 +54,13 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextArea fx:id="outComeArea" layoutX="14.0" layoutY="15.0" prefHeight="378.0" prefWidth="577.0" style="-fx-font-size: 16px;"/>
+                    <TextArea fx:id="outComeArea" layoutX="14.0" layoutY="15.0" prefHeight="378.0" prefWidth="577.0" style="-fx-font-size: 16px;" />
                     <Label layoutX="601.0" layoutY="-10.0" prefHeight="24.0" prefWidth="143.0" text="响应：">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextArea fx:id="responseArea" layoutX="601.0" layoutY="15.0" prefHeight="378.0" prefWidth="591.0" style="-fx-font-size: 16px;"/>
+                    <TextArea fx:id="responseArea" layoutX="601.0" layoutY="15.0" prefHeight="378.0" prefWidth="591.0" style="-fx-font-size: 16px;" />
                 </children>
             </AnchorPane>
         </children>

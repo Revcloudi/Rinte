@@ -37,7 +37,6 @@ public class EncryptionDecryptionController {
     @FXML
     private TextArea outputValue;
 
-    // 状态变量：跟踪上一次的操作是编码还是解码
     private boolean isEncoding = true;
 
     @FXML
@@ -96,7 +95,7 @@ public class EncryptionDecryptionController {
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return new StackPane(); // Return an empty pane if loading fails
+            return new StackPane();
         }
     }
 
@@ -164,41 +163,45 @@ public class EncryptionDecryptionController {
         }
     }
 
-    // 新增的方法：处理哈希加密
+    /**
+     * 哈希加密
+     * @throws NoSuchAlgorithmException
+     */
     private void processHashEncryption() throws NoSuchAlgorithmException {
         String hashType = hashEncryptionType.getSelectionModel().getSelectedItem();
         String str = inputValue.getText();
+        String codeTypes = codeType.getSelectionModel().getSelectedItem();
         if (hashType != null && !str.isEmpty()) {
             switch (hashType) {
                 case "MD5(16位)":
-                    outputValue.setText(Encryption.md5_16bit(str));
+                    outputValue.setText(Encryption.md5_16bit(str, codeTypes));
                     break;
                 case "MD5(32位)":
-                    outputValue.setText(Encryption.md5_32bit(str));
+                    outputValue.setText(Encryption.md5_32bit(str, codeTypes));
                     break;
                 case "SHA1":
-                    outputValue.setText(Encryption.sha1(str));
+                    outputValue.setText(Encryption.sha1(str, codeTypes));
                     break;
                 case "SHA1(Base64)":
-                    outputValue.setText(Encryption.sha1Base64(str));
+                    outputValue.setText(Encryption.sha1Base64(str, codeTypes));
                     break;
                 case "SHA256":
-                    outputValue.setText(Encryption.sha256(str));
+                    outputValue.setText(Encryption.sha256(str, codeTypes));
                     break;
                 case "SHA256(Base64)":
-                    outputValue.setText(Encryption.sha256Base64(str));
+                    outputValue.setText(Encryption.sha256Base64(str, codeTypes));
                     break;
                 case "SHA384":
-                    outputValue.setText(Encryption.sha384(str));
+                    outputValue.setText(Encryption.sha384(str, codeTypes));
                     break;
                 case "SHA384(Base64)":
-                    outputValue.setText(Encryption.sha384Base64(str));
+                    outputValue.setText(Encryption.sha384Base64(str, codeTypes));
                     break;
                 case "SHA512":
-                    outputValue.setText(Encryption.sha512(str));
+                    outputValue.setText(Encryption.sha512(str, codeTypes));
                     break;
                 case "SHA512(Base64)":
-                    outputValue.setText(Encryption.sha512Base64(str));
+                    outputValue.setText(Encryption.sha512Base64(str, codeTypes));
                     break;
             }
         }

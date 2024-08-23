@@ -22,16 +22,16 @@ public class ShellGeneratePane {
         MemoryShellController memoryShellController = new MemoryShellController();
 
         // 创建每个子Tab及其对应的独立GUI页面
-        Tab proxyTab = new Tab("Java内存马生成", memoryShellController.getContent());
+        Tab javaShell = new Tab("Java内存马生成", memoryShellController.getContent());
 
-        TabConfigUI.setTopLevelTabStyle(proxyTab);
+        TabConfigUI.setTopLevelTabStyle(javaShell);
 
         // 添加子Tab到子TabPane
-        tabPane.getTabs().addAll(proxyTab);
+        tabPane.getTabs().addAll(javaShell);
 
         // 设置TabPane样式
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        tabPane.getSelectionModel().select(proxyTab);
+        tabPane.getSelectionModel().select(javaShell);
     }
 }
