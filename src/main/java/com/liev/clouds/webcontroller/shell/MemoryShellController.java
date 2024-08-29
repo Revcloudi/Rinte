@@ -19,7 +19,7 @@ public class MemoryShellController {
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return new StackPane(); // Return an empty pane if loading fails
+            return new StackPane();
         }
     }
 

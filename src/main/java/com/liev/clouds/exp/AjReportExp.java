@@ -84,7 +84,7 @@ public class AjReportExp {
                 }
             }
 
-            params.getOutComeArea().setText("[---]CVE-2024-5352任意命令执行漏洞不存在!");
+            params.getOutComeArea().appendText("[---]CVE-2024-5352任意命令执行漏洞不存在!");
 
         } catch (Exception e) {
             params.getOutComeArea().setText("检测过程中出现错误: " + e.getMessage());
@@ -130,7 +130,7 @@ public class AjReportExp {
                 return exp;
             }
 
-            params.getOutComeArea().setText("[---]CVE-2024-5356任意命令执行漏洞漏洞不存在!");
+            params.getOutComeArea().appendText("[---]CVE-2024-5356任意命令执行漏洞漏洞不存在!");
 
         } catch (Exception e) {
             params.getOutComeArea().setText("检测过程中出现错误: " + e.getMessage());
@@ -179,7 +179,7 @@ public class AjReportExp {
                     return exp;
                 }
 
-                params.getOutComeArea().setText("漏洞不存在!");
+                params.getOutComeArea().appendText("漏洞不存在!");
 
             }
 

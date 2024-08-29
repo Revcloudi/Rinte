@@ -4,6 +4,7 @@
 
 [![Generic badge](https://img.shields.io/badge/Java-1.8-<COLOR>.svg)](https://shields.io/)[![Generic badge](https://img.shields.io/badge/Shiro-All-<COLOR>.svg)](https://shields.io/)![Generic badge](https://img.shields.io/badge/JavaFx-All-<COLOR>.svg)[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)[![GitHub stars](https://img.shields.io/github/stars/Naereen/StrapDown.js.svg?style=social&label=Star&maxAge=000000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
 
+
 ## Brief Introduction
 
 A tool that penetration testers love very much, providing various functions to deal with various testing assets

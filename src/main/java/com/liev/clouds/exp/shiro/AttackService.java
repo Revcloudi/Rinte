@@ -398,6 +398,7 @@ public class AttackService {
         });
         thread.start();
     }
+
     public void execCmdTask(String command) {
         HashMap<String, String> header = new HashMap();
         header.put("Cookie", attackRememberMe);

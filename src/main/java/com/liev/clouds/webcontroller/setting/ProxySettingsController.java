@@ -134,17 +134,20 @@ public class ProxySettingsController {
     @FXML
     public boolean checkConnection(ActionEvent actionEvent) {
         boolean check = false;
+        HttpURLConnection connection = null;
         try {
             // 设置代理
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ipAddressField.getText(), Integer.parseInt(portField.getText())));
 
-            // 设置代理身份验证（仅在用户名和密码不为null时）
-            if (usernameField.getText() != null && passwordField.getText() != null) {
+            // 设置代理身份验证（仅在用户名和密码不为null且不为空时）
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
                 Authenticator authenticator = new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         if (getRequestorType() == RequestorType.PROXY) {
-                            return new PasswordAuthentication(usernameField.getText(), passwordField.getText().toCharArray());
+                            return new PasswordAuthentication(username, password.toCharArray());
                         }
                         return null;
                     }
@@ -152,8 +155,8 @@ public class ProxySettingsController {
                 Authenticator.setDefault(authenticator);
             }
 
-            URL url = new URL("https://www.baidu.com");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
+            URL url = new URL("http://www.baidu.com");
+            connection = (HttpURLConnection) url.openConnection(proxy);
             connection.setRequestMethod("GET");
             connection.connect();
 
@@ -168,6 +171,10 @@ public class ProxySettingsController {
 
         } catch (Exception e) {
             ProxyLogger.error_out(e);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
 
         return check;

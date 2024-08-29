@@ -68,18 +68,16 @@ public class DataUtils {
      */
     public static void displayResponse(TextArea postTxt, TextArea responseArea, TextArea outComeArea, String postData, HttpResponse response, String resultMessage) {
         String formattedPostData = formatJson(postData);
-        postTxt.setText(formattedPostData);
+        postTxt.appendText(formattedPostData);
 
-        // Format and display response headers and body
         Map<String, String> responseHeaders = response.getResponseHeaders();
         StringBuilder headersStringBuilder = new StringBuilder();
         for (Map.Entry<String, String> entry : responseHeaders.entrySet()) {
             headersStringBuilder.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
         }
-        responseArea.setText(response.getResponseCode() + "\n" + headersStringBuilder.toString() + "\n" + response.getResponseBody());
+        responseArea.appendText(response.getResponseCode() + "\n" + headersStringBuilder.toString() + "\n" + response.getResponseBody());
 
-        // Display result message
-        outComeArea.setText(resultMessage);
+        outComeArea.appendText(resultMessage);
     }
 
 

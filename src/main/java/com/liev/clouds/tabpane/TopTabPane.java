@@ -25,6 +25,11 @@ public class TopTabPane {
         MiddleWarePane middleWareTab = new MiddleWarePane();
         javaMiddlewareTab.setContent(middleWareTab.getTabPane());
 
+        Tab manufacturerCmsTab = new Tab("厂商CMS");
+        TabConfigUI.setTopLevelTabStyle(manufacturerCmsTab);
+        ManufacturerCMSPane manufacturerCMSPane = new ManufacturerCMSPane();
+        manufacturerCmsTab.setContent(manufacturerCMSPane.getTabPane());
+
         // 继续为其他顶层Tab创建对应的第二排TabPane...
         Tab decodeEncodedTab = new Tab("编码/解码");
         TabConfigUI.setTopLevelTabStyle(decodeEncodedTab);
@@ -42,7 +47,7 @@ public class TopTabPane {
         settingTab.setContent(settingPane.getTabPane());
 
         // 将所有顶层Tab添加到顶层TabPane中
-        tabPane.getTabs().addAll(cmsTab, javaMiddlewareTab, decodeEncodedTab, shellCreateTab, settingTab);
+        tabPane.getTabs().addAll(cmsTab, javaMiddlewareTab, manufacturerCmsTab, decodeEncodedTab, shellCreateTab, settingTab);
 
         // 设置TabPane样式
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
