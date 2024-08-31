@@ -122,7 +122,7 @@ public class ShiroController {
     void injectShellBtn(ActionEvent event) {
         // TODO 这里有bug，还没测试完
 
-        String memShellType = (String)this.shellType.getValue();
+        String memShellType = this.shellType.getValue();
         String shellPass = this.shellPassword.getText();
         String shellPath = this.shellPath.getText();
         if (AttackService.gadget != null ) {

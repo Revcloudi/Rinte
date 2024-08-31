@@ -5,6 +5,7 @@ import com.liev.clouds.exp.shiro.AttackService;
 import com.liev.clouds.logs.proxylog.ProxyLogger;
 import com.liev.clouds.payload.shiro.util.HttpUtil;
 import com.liev.clouds.utils.HttpUtils;
+import com.liev.clouds.utils.ProxyUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,6 +86,7 @@ public class ProxySettingsController {
 
     @FXML
     public void initialize(){
+        ProxyUtils.loadProxySettings(this);
         proxyConfig = new ProxyConfig();
 
         disableCheckBox.setOnAction(event -> {
@@ -231,5 +233,6 @@ public class ProxySettingsController {
         }else {
 
         }
+        ProxyUtils.saveProxySettings(this);
     }
 }

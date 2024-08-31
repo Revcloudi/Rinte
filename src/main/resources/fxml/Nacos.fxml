@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.RuoYiController">
+<StackPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.NacosController">
     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <AnchorPane prefHeight="69.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:80" />
+                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:8888" />
                     <Button id="check" layoutX="640.0" layoutY="17.0" mnemonicParsing="false" onAction="#check" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
                         <font>
                             <Font size="18.0" />
@@ -22,13 +22,7 @@
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="All" />
-                                <String fx:value="RuoYi 小于 4.6.1 Shiro反序列化 CVE-2021-38241" />
-                                <String fx:value="RuoYi 小于 4.6.2 SQL注入 CVE-2023-49371" />
-                                <String fx:value="RuoYi 等于 4.7.1 SSTI模板注入" />
-                                <String fx:value="RuoYi 等于 4.7.2 定时任务RCE" />
-                                <String fx:value="RuoYi 小于 4.7.3 文件上传解析HTML CVE-2022-32065" />
-                                <String fx:value="RuoYi 小于 4.7.5 SQL注入 CVE-2022-48114" />
-                                <String fx:value="RuoYi 等于 4.7.8 任意文件下载 CVE-2023-27025" />
+                                <String fx:value="Nacos 未授权访问" />
                             </FXCollections>
                         </items>
                     </ComboBox>

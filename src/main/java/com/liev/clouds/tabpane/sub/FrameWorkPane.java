@@ -1,6 +1,7 @@
 package com.liev.clouds.tabpane.sub;
 
 import com.liev.clouds.config.TabConfigUI;
+import com.liev.clouds.webcontroller.framework.NacosController;
 import com.liev.clouds.webcontroller.setting.ProxySettingsController;
 import com.liev.clouds.webcontroller.framework.AJreportController;
 import com.liev.clouds.webcontroller.framework.RuoYiController;
@@ -18,16 +19,16 @@ public class FrameWorkPane {
         tabPane = new TabPane();
 
         AJreportController ajreportController = new AJreportController();
-        Tab AjreportTab = new Tab("AJreport", ajreportController.getContent());
-        TabConfigUI.setTopLevelTabStyle(AjreportTab);
-        Tab nacosTab = new Tab("Nacos", new ProxySettingsController().getContent());
+        Tab ajreportTab = new Tab("AJreport", ajreportController.getContent());
+        TabConfigUI.setTopLevelTabStyle(ajreportTab);
+        Tab nacosTab = new Tab("Nacos", new NacosController().getContent());
         TabConfigUI.setTopLevelTabStyle(nacosTab);
         Tab ruoyiTab = new Tab("RuoYi", new RuoYiController().getContent());
         TabConfigUI.setTopLevelTabStyle(ruoyiTab);
 
-        tabPane.getTabs().addAll(AjreportTab, nacosTab, ruoyiTab);
+        tabPane.getTabs().addAll(ajreportTab, nacosTab, ruoyiTab);
 
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        tabPane.getSelectionModel().select(AjreportTab);
+        tabPane.getSelectionModel().select(ajreportTab);
     }
 }

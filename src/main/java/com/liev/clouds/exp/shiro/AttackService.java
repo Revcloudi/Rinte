@@ -438,7 +438,7 @@ public class AttackService {
                     String httpAddress = Utils.UrlToDomain(this.url);
                     this.shiroController.shellLog.appendText(Utils.log(memShellType + "  注入成功!"));
                     this.shiroController.shellLog.appendText(Utils.log("路径：" + httpAddress + shellPath));
-                    if (!memShellType.equals("reGeorg[Servlet]")) {
+                    if (!memShellType.equals("reGeorg【Servlet】")) {
                         this.shiroController.shellLog.appendText(Utils.log("密码：" + shellPass));
                     }
                 } else {
@@ -457,6 +457,4 @@ public class AttackService {
 
     }
 
-    public static void main(String[] args) {
-    }
 }

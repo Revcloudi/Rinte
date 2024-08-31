@@ -44,15 +44,21 @@ public class AJreportController {
             String selectedValue = comboBox.getSelectionModel().getSelectedItem();
 
             AjReportExp ajReportExp = new AjReportExp();
-            if (selectedValue.equals("All")) {
-                ajReportExp.processDetection(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-            } else if (selectedValue.equals("CVE-2024-5352(任意命令执行)")) {
-                ajReportExp.processRce(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-            } else if (selectedValue.equals("CVE-2024-5350(SQL信息泄露)")) {
-                ajReportExp.processSql(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-            } else if (selectedValue.equals("CVE-2024-5356(任意命令执行)")) {
-                ajReportExp.processJsExp(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
+            switch (selectedValue) {
+                case "All":
+                    ajReportExp.processDetection(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
+                    break;
+                case "CVE-2024-5352(任意命令执行)":
+                    ajReportExp.processRce(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
+                    break;
+                case "CVE-2024-5350(SQL信息泄露)":
+                    ajReportExp.processSql(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
+                    break;
+                case "CVE-2024-5356(任意命令执行)":
+                    ajReportExp.processJsExp(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
+                    break;
             }
+
         });
     }
 

@@ -165,12 +165,12 @@
                             </FXCollections>
                         </items>
                     </ComboBox>
-                    <Button fx:id="detectingUtilizationChain" onAction="#crackSpcGadgetBtn" layoutX="823.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="161.0" text="检测当前利用链">
+                    <Button onAction="#crackSpcGadgetBtn" layoutX="823.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="161.0" text="检测当前利用链">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="blastingUtilizationChain" onAction="#crackGadgetBtn" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="爆破当前利用链">
+                    <Button onAction="#crackGadgetBtn" layoutX="997.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="爆破当前利用链">
                         <font>
                             <Font size="18.0" />
                         </font>
@@ -208,7 +208,7 @@
                                                     <Font size="16.0" />
                                                 </font>
                                             </TextField>
-                                            <Button fx:id="execute" onAction="#executeCmdBtn" layoutX="1061.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="执行">
+                                            <Button onAction="#executeCmdBtn" layoutX="1061.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="执行">
                                                 <font>
                                                     <Font size="18.0" />
                                                 </font>
@@ -241,12 +241,18 @@
                                                         <String fx:value="冰蝎【Filter】"/>
                                                         <String fx:value="哥斯拉【Filter】"/>
                                                         <String fx:value="蚁剑【Filter】"/>
-                                                        <String fx:value="冰蝎【Servlet】"/>
+                                                        <String fx:value="NeoreGeorg【Filter】"/>
+                                                        <String fx:value="reGoreg【Filter】"/>
                                                         <String fx:value="哥斯拉【Servlet】"/>
                                                         <String fx:value="蚁剑【Servlet】"/>
-                                                        <String fx:value="Value"/>
-                                                        <String fx:value="Listener"/>
-                                                        <String fx:value="SpringController"/>
+                                                        <String fx:value="冰蝎【Servlet】"/>
+                                                        <String fx:value="NeoreGeorg【Servlet】"/>
+                                                        <String fx:value="reGoreg【Servlet】"/>
+                                                        <String fx:value="ChangeShiroKey【Filter】"/>
+                                                        <String fx:value="ChangeShiroKey【Filter2】"/>
+                                                        <String fx:value="BastionFilter"/>
+                                                        <String fx:value="BastionEncryFilter"/>
+                                                        <String fx:value="AddDllFilter"/>
                                                     </FXCollections>
                                                 </items>
                                             </ComboBox>
@@ -270,7 +276,7 @@
                                                     <Font size="16.0" />
                                                 </font>
                                             </TextField>
-                                            <Button fx:id="shellInject" onAction="#injectShellBtn" layoutX="1017.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" text="注入">
+                                            <Button onAction="#injectShellBtn" layoutX="1017.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" text="注入">
                                                 <font>
                                                     <Font size="18.0" />
                                                 </font>
@@ -292,7 +298,7 @@
                                 <children>
                                     <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="63.0" prefWidth="1202.0">
                                         <children>
-                                            <Button fx:id="randomGenerationKey" onAction="#keyTxt" layoutX="529.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="144.0" text="生成随机Key">
+                                            <Button onAction="#keyTxt" layoutX="529.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="144.0" text="生成随机Key">
                                                 <font>
                                                     <Font size="18.0" />
                                                 </font>
