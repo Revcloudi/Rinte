@@ -24,11 +24,9 @@
                                 <String fx:value="All" />
                                 <String fx:value="RuoYi 小于 4.6.1 Shiro反序列化 CVE-2021-38241" />
                                 <String fx:value="RuoYi 小于 4.6.2 SQL注入 CVE-2023-49371" />
-                                <String fx:value="RuoYi 等于 4.7.1 SSTI模板注入" />
                                 <String fx:value="RuoYi 等于 4.7.2 定时任务RCE" />
                                 <String fx:value="RuoYi 小于 4.7.3 文件上传解析HTML CVE-2022-32065" />
                                 <String fx:value="RuoYi 小于 4.7.5 SQL注入 CVE-2022-48114" />
-                                <String fx:value="RuoYi 等于 4.7.8 任意文件下载 CVE-2023-27025" />
                             </FXCollections>
                         </items>
                     </ComboBox>

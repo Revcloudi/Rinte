@@ -106,12 +106,12 @@
                             <Font size="18.0" />
                         </font>
                     </CheckBox>
-                    <Button fx:id="detectingKeys" onAction="#crackSpcKeyBtn" layoutX="871.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="检测密钥">
+                    <Button onAction="#crackSpcKeyBtn" layoutX="871.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="检测密钥">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <Button fx:id="blastingKey" onAction="#crackKeyBtn" layoutX="1036.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="爆破密钥">
+                    <Button onAction="#crackKeyBtn" layoutX="1036.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" text="爆破密钥">
                         <font>
                             <Font size="18.0" />
                         </font>

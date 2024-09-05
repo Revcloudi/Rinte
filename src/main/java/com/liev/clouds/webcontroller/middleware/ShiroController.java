@@ -270,8 +270,6 @@ public class ShiroController {
             this.initAttack();
         }
         if (this.attackService.checkIsShiro()) {
-            log.appendText(Utils.log("多线程爆破中.....当前线程数为10"));
-            // 创建一个固定大小为10的线程池
             ExecutorService executorService = Executors.newFixedThreadPool(10);
 
             // 提交10个任务给线程池

@@ -73,13 +73,17 @@ public class RuoYiController {
         headersMap.put(header, body);
 
         switch (expType){
-            case "ALL":
-                sql_system_role_list(urls, headersMap, this);
-                sql_system_dept_edit(urls, headersMap, this);
+            case "All":
+                sql_system_all(urls, headersMap, this);
                 sql_tool_gen_createTable(urls, headersMap, this);
+                rce_Jndi_snakeyaml(urls, headersMap, this);
+                upload_Html_rce(urls, headersMap, this);
+                break;
+            case "RuoYi 小于 4.6.1 Shiro反序列化 CVE-2021-38241":
+                
+                break;
             case "RuoYi 小于 4.6.2 SQL注入 CVE-2023-49371":
-                sql_system_role_list(urls, headersMap, this);
-                sql_system_dept_edit(urls, headersMap, this);
+                sql_system_all(urls, headersMap, this);
                 break;
             case "RuoYi 小于 4.7.5 SQL注入 CVE-2022-48114":
                 sql_tool_gen_createTable(urls, headersMap, this);
@@ -87,7 +91,7 @@ public class RuoYiController {
             case "RuoYi 等于 4.7.2 定时任务RCE":
                 rce_Jndi_snakeyaml(urls, headersMap, this);
                 break;
-            case "RuoYi 小于 4.7.3 文件上传解析HTML":
+            case "RuoYi 小于 4.7.3 文件上传解析HTML CVE-2022-32065":
                 upload_Html_rce(urls, headersMap, this);
                 break;
         }
