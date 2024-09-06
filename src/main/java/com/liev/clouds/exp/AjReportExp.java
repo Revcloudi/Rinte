@@ -79,7 +79,7 @@ public class AjReportExp {
         }
 
         if (!vulnerabilityExists) {
-            controller.log.appendText("[---]CVE-2024-5356任意命令执行漏洞存不存在！\n");
+            controller.log.appendText("[---]CVE-2024-5356任意命令执行漏洞不存在！\n");
         }
 
     }

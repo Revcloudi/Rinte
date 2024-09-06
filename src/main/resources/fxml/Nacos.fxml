@@ -11,7 +11,7 @@
         <children>
             <AnchorPane prefHeight="69.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:8888" />
+                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:8848" />
                     <Button id="check" layoutX="640.0" layoutY="17.0" mnemonicParsing="false" onAction="#check" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
                         <font>
                             <Font size="18.0" />
@@ -22,7 +22,8 @@
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="All" />
-                                <String fx:value="Nacos 未授权访问" />
+                                <String fx:value="Nacos认证绕过 CVE-2021-29441" />
+                                <String fx:value="Nacos 未授权接口命令执行漏洞 CVE-2021-29442" />
                             </FXCollections>
                         </items>
                     </ComboBox>
@@ -30,7 +31,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="70.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="requestHeader" layoutX="240.0" layoutY="15.0" prefHeight="32.0" prefWidth="180.0" style="-fx-font-size: 16px;" text="Cookie" />
+                    <TextField fx:id="requestHeader" layoutX="240.0" layoutY="15.0" prefHeight="32.0" prefWidth="180.0" style="-fx-font-size: 16px;" />
                     <Label layoutX="168.0" layoutY="13.0" prefHeight="36.0" prefWidth="72.0" text="请求头：">
                         <font>
                             <Font size="18.0" />
