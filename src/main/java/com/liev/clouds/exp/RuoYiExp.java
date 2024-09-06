@@ -48,7 +48,6 @@ public class RuoYiExp {
             }
         }
 
-        // 如果没有检测到漏洞
         if (!vulnerabilityExists) {
             controller.log.appendText("[---]CVE-2023-49371 RuoYi 小于 4.6.2 SQL注入漏洞不存在！\n");
         }

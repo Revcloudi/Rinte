@@ -1,65 +1,40 @@
 package com.liev.clouds.webcontroller.framework;
 
-import com.liev.clouds.dao.AjReportDetectionParams;
 import com.liev.clouds.exp.AjReportExp;
+import com.liev.clouds.payload.RequestHeaderPayload;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AJreportController {
 
     @FXML
-    private TextField inUrl;
+    public TextField url;
 
     @FXML
-    private Button button;
+    public ComboBox<String> options;
 
     @FXML
-    private CheckBox checkBoxPost;
+    public TextField requestHeader;
 
     @FXML
-    private ComboBox<String> comboBox;
+    public TextField requestBody;
 
     @FXML
-    private TextArea postTxt;
+    public TextArea log;
 
     @FXML
-    private TextArea outComeArea;
-
-    @FXML
-    private TextArea responseArea;
+    public TextArea responseBody;
 
     @FXML
     public void initialize() {
-        comboBox.getSelectionModel().selectFirst();
-
-        button.setOnAction(event -> {
-            String url = inUrl.getText();
-            List<String> postData = checkBoxPost.isSelected() ? Arrays.asList(postTxt.getText()) : null;
-            String selectedValue = comboBox.getSelectionModel().getSelectedItem();
-
-            AjReportExp ajReportExp = new AjReportExp();
-            switch (selectedValue) {
-                case "All":
-                    ajReportExp.processDetection(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-                    break;
-                case "CVE-2024-5352(任意命令执行)":
-                    ajReportExp.processRce(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-                    break;
-                case "CVE-2024-5350(SQL信息泄露)":
-                    ajReportExp.processSql(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-                    break;
-                case "CVE-2024-5356(任意命令执行)":
-                    ajReportExp.processJsExp(new AjReportDetectionParams(url, postData, postTxt, outComeArea, responseArea));
-                    break;
-            }
-
-        });
+        options.getSelectionModel().selectFirst();
     }
 
     public StackPane getContent() {
@@ -69,6 +44,34 @@ public class AJreportController {
         } catch (IOException e) {
             e.printStackTrace();
             return new StackPane();
+        }
+    }
+
+    @FXML
+    public void check(ActionEvent actionEvent) {
+        String urls = url.getText();
+        String expType = options.getSelectionModel().getSelectedItem();
+        String header = requestHeader.getText();
+        String body = requestBody.getText();
+
+        Map<String, String> headersMap = new HashMap<>();
+        headersMap.put("Content-Type", "application/json;charset=UTF-8");
+        headersMap.put("User-Agent", RequestHeaderPayload.CHROME_WINDOWS_11);
+        headersMap.put(header, body);
+
+        switch (expType){
+            case "CVE-2024-5352(任意命令执行)":
+                AjReportExp.RCE_dataSetParam_verification(urls, headersMap, this);
+                break;
+            case "CVE-2024-5356(任意命令执行)":
+                AjReportExp.RCE_dataSet_testTransform(urls, headersMap, this);
+                break;
+            case "弱口令":
+                AjReportExp.weak_password(urls, headersMap, this);
+                break;
+            case "SQL信息泄露":
+                AjReportExp.information_leakage(urls, headersMap, this);
+                break;
         }
     }
 }

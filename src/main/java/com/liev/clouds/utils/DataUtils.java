@@ -57,28 +57,5 @@ public class DataUtils {
         return false;
     }
 
-    /**
-     * AjReport 将响应进行封装
-     * @param postTxt
-     * @param responseArea
-     * @param outComeArea
-     * @param postData
-     * @param response
-     * @param resultMessage
-     */
-    public static void displayResponse(TextArea postTxt, TextArea responseArea, TextArea outComeArea, String postData, HttpResponse response, String resultMessage) {
-        String formattedPostData = formatJson(postData);
-        postTxt.appendText(formattedPostData);
-
-        Map<String, String> responseHeaders = response.getResponseHeaders();
-        StringBuilder headersStringBuilder = new StringBuilder();
-        for (Map.Entry<String, String> entry : responseHeaders.entrySet()) {
-            headersStringBuilder.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-        }
-        responseArea.appendText(response.getResponseCode() + "\n" + headersStringBuilder.toString() + "\n" + response.getResponseBody());
-
-        outComeArea.appendText(resultMessage);
-    }
-
 
 }

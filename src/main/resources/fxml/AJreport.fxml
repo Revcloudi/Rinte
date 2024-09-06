@@ -6,63 +6,69 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!-- 定义一个 StackPane 作为根节点 -->
-
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.liev.clouds.webcontroller.framework.AJreportController">
+<StackPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.liev.clouds.webcontroller.framework.AJreportController">
     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-            <AnchorPane prefHeight="54.0" prefWidth="1202.0">
+            <AnchorPane prefHeight="69.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="inUrl" layoutX="15.0" layoutY="18.0" prefHeight="32.0" prefWidth="599.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:9095" />
-                    <CheckBox fx:id="checkBoxPost" layoutX="626.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="143.0" text="POST请求">
-                        <font>
-                            <Font size="18.0" />
-                        </font>
-                    </CheckBox>
-                    <Button fx:id="button" layoutX="769.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
+                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:9095" />
+                    <Button id="check" layoutX="640.0" layoutY="17.0" mnemonicParsing="false" onAction="#check" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Button>
-                    <ComboBox fx:id="comboBox" layoutX="895.0" layoutY="18.0" prefHeight="32.0" prefWidth="296.0" style="-fx-font-size: 16px;">
+                    <ComboBox fx:id="options" layoutX="758.0" layoutY="19.0" prefHeight="32.0" prefWidth="430.0" style="-fx-font-size: 16px;">
                         <items>
                             <!-- 初始化选择框的选项列表 -->
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="All" />
+                                <String fx:value="弱口令" />
+                                <String fx:value="SQL信息泄露" />
                                 <String fx:value="CVE-2024-5352(任意命令执行)" />
-                                <String fx:value="CVE-2024-5350(SQL信息泄露)" />
                                 <String fx:value="CVE-2024-5356(任意命令执行)" />
                             </FXCollections>
                         </items>
                     </ComboBox>
                 </children>
             </AnchorPane>
-            <AnchorPane prefHeight="271.0" prefWidth="1202.0">
+            <AnchorPane prefHeight="70.0" prefWidth="1202.0">
                 <children>
-                    <TextArea fx:id="postTxt" layoutX="14.0" layoutY="31.0" prefHeight="226.0" prefWidth="1178.0" style="-fx-font-size: 16px;" wrapText="true"/>
-                    <Label layoutX="14.0" layoutY="2.0" prefHeight="24.0" prefWidth="143.0" text="POST请求数据：">
+                    <TextField fx:id="requestHeader" layoutX="240.0" layoutY="15.0" prefHeight="32.0" prefWidth="180.0" style="-fx-font-size: 16px;"/>
+                    <Label layoutX="168.0" layoutY="13.0" prefHeight="36.0" prefWidth="72.0" text="请求头：">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="430.0" layoutY="13.0" prefHeight="36.0" prefWidth="79.0" text="请求体：">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="requestBody" layoutX="509.0" layoutY="15.0" prefHeight="32.0" prefWidth="679.0" style="-fx-font-size: 16px;" />
+                    <Label layoutX="14.0" layoutY="13.0" prefHeight="36.0" prefWidth="131.0" text="自定义请求头">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Label>
                 </children>
             </AnchorPane>
-            <AnchorPane prefHeight="403.0" prefWidth="1202.0">
+            <AnchorPane prefHeight="605.0" prefWidth="1202.0">
                 <children>
-                    <Label layoutX="14.0" layoutY="-10.0" prefHeight="24.0" prefWidth="143.0" text="结果：">
+                    <Label layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="72.0" text="日志：">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextArea fx:id="outComeArea" layoutX="14.0" layoutY="15.0" prefHeight="378.0" prefWidth="577.0" wrapText="true" style="-fx-font-size: 16px;" />
-                    <Label layoutX="601.0" layoutY="-10.0" prefHeight="24.0" prefWidth="143.0" text="响应：">
+                    <Label layoutX="601.0" layoutY="14.0" prefHeight="32.0" prefWidth="79.0" text="结果：">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <TextArea fx:id="responseArea" layoutX="601.0" layoutY="15.0" prefHeight="378.0" prefWidth="591.0" wrapText="true" style="-fx-font-size: 16px;" />
+                    <TextArea fx:id="log" layoutX="14.0" layoutY="46.0" prefHeight="545.0" prefWidth="570.0" style="-fx-font-size: 16px;" wrapText="true" />
+                    <TextArea fx:id="responseBody" layoutX="601.0" layoutY="46.0" prefHeight="545.0" prefWidth="586.0" style="-fx-font-size: 16px;" wrapText="true" />
                 </children>
             </AnchorPane>
         </children>
     </VBox>
+
 </StackPane>
