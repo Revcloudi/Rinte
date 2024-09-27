@@ -1,6 +1,7 @@
 package com.liev.clouds.webcontroller.framework;
 
 import com.liev.clouds.payload.RequestHeaderPayload;
+import com.liev.clouds.payload.RuoYiPayload;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,6 +63,10 @@ public class RuoYiController {
         String header = requestHeader.getText();
         String body = requestBody.getText();
 
+        if (expType.equals("RuoYi 小于 4.6.1 Shiro反序列化 CVE-2021-38241")){
+            body = RuoYiPayload.SHIRO_POC;
+        }
+
         if(Objects.equals(body, "")){
             log.setText("请输入Cookie再进行检测！");
             return;
@@ -80,7 +85,7 @@ public class RuoYiController {
                 upload_Html_rce(urls, headersMap, this);
                 break;
             case "RuoYi 小于 4.6.1 Shiro反序列化 CVE-2021-38241":
-                
+                RCE_Shiro(urls, headersMap, this);
                 break;
             case "RuoYi 小于 4.6.2 SQL注入 CVE-2023-49371":
                 sql_system_all(urls, headersMap, this);

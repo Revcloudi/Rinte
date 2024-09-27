@@ -2,9 +2,12 @@ package com.liev.clouds.exp;
 
 import com.liev.clouds.dao.HttpResponse;
 import com.liev.clouds.payload.RuoYiPayload;
+import com.liev.clouds.utils.DataUtils;
 import com.liev.clouds.utils.HttpUtils;
 import com.liev.clouds.webcontroller.framework.RuoYiController;
 
+import java.util.Collection;
+import java.util.EventListener;
 import java.util.Map;
 
 /**
@@ -12,6 +15,28 @@ import java.util.Map;
  * @since 2024/8/29 9:59
  */
 public class RuoYiExp {
+
+    /**
+     * 检测RuoYi 小于 4.6.1 Shiro反序列化 CVE-2021-38241漏洞
+     * @param url
+     * @param headers
+     * @param controller
+     */
+    public static void RCE_Shiro(String url, Map<String, String> headers, RuoYiController controller){
+        HttpResponse response = HttpUtils.sendGet(url, headers);
+        Map<String, String> header = response.getResponseHeaders();
+        Integer responseCode = response.getResponseCode();
+
+        if (response.getResponseCode() == 200 && !DataUtils.containsHeader(header, "rememberMe=deleteMe")){
+            controller.log.appendText("[+++]CVE-2021-38241 RuoYi 小于 4.6.1 Shiro反序列化漏洞存在！\nShiro Key:" + RuoYiPayload.SHIRO_KEY_AES_GCM + "\n加密方式为: AES_GCM");
+            controller.responseBody.appendText(responseCode + "\n");
+            for (Map.Entry<String, String> entry : header.entrySet()) {
+                controller.responseBody.appendText(entry.getKey() + ": " + entry.getValue() + "\n");
+            }
+        }else{
+            controller.log.appendText("[---]CVE-2021-38241 RuoYi 小于 4.6.1 Shiro反序列化漏洞不存在");
+        }
+    }
 
 
     /**

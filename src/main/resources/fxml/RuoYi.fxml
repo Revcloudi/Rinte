@@ -11,7 +11,7 @@
         <children>
             <AnchorPane prefHeight="69.0" prefWidth="1202.0">
                 <children>
-                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:80" />
+                    <TextField fx:id="url" layoutX="16.0" layoutY="19.0" prefHeight="32.0" prefWidth="606.0" style="-fx-font-size: 16px;" text="http://127.0.0.1:80/login" />
                     <Button id="check" layoutX="640.0" layoutY="17.0" mnemonicParsing="false" onAction="#check" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="检测">
                         <font>
                             <Font size="18.0" />

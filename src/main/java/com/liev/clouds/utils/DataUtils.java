@@ -57,5 +57,22 @@ public class DataUtils {
         return false;
     }
 
+    /**
+     * 从响应头中检查字符，存在为true
+     * @param headers 需要检查的响应头
+     * @param expectedValue 检测的字符
+     * @return 是否存在
+     */
+    public static boolean containsHeader(Map<String, String> headers, String expectedValue){
+
+        for (String headerName : headers.keySet()) {
+
+            if (headerName.contains(expectedValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

