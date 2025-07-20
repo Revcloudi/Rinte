@@ -1,4 +1,4 @@
-![R](./Rinte.png#pic_center)
+![R](assets/Rinte.png#pic_center)
 
 
 
