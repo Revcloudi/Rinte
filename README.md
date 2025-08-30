@@ -1,21 +1,37 @@
-![R](assets/Rinte.png#pic_center)
+![R](Rinte.png#pic_center)
 
 
 
-[![Generic badge](https://img.shields.io/badge/Java-1.8-<COLOR>.svg)](https://shields.io/)[![Generic badge](https://img.shields.io/badge/Shiro-All-<COLOR>.svg)](https://shields.io/)![Generic badge](https://img.shields.io/badge/JavaFx-All-<COLOR>.svg)[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)[![GitHub stars](https://img.shields.io/github/stars/Naereen/StrapDown.js.svg?style=social&label=Star&maxAge=000000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
+[![Generic badge](https://img.shields.io/badge/Java-17-<COLOR>.svg)](https://shields.io/)[![Generic badge](https://img.shields.io/badge/BurpSuite-Extensions-<COLOR>.svg)](https://shields.io/)![Generic badge](https://img.shields.io/badge/Framework-Detection-<COLOR>.svg)[![Generic badge](https://img.shields.io/badge/SupportPOC-1000+-<COLOR>.svg)](https://shields.io/)![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)[![GitHub stars](https://img.shields.io/github/stars/Naereen/StrapDown.js.svg?style=social&label=Star&maxAge=000000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
 
+## 📖 简介
 
-## Brief Introduction
+**Rinte** 是一款专为渗透测试人员设计的 Burp Suite 插件，提供强大的自动化安全扫描功能。该插件集成了框架检测、漏洞扫描和敏感路径扫描等多种功能，帮助安全研究人员快速识别目标系统的安全漏洞。支持1000+框架POC、支持动态加载POC、指定框架扫描。
 
-A tool that penetration testers love very much, providing various functions to deal with various testing assets
+## 🔄 核心功能
 
-## Update Process
-
-- Exploit the vulnerability in Ajreport version 1.4.1
-- Integrated [Shiro Attack2](https://github.com/SummerSec/ShiroAttack2) module to detect Shiro vulnerabilities. Special thanks to SummerSec master
-- Improve proxy settings and recommend using [Burpsuite](https://portswigger.net/burp) to obtain full traffic
-- Implemented encoding, decoding, and hash encryption functions
-- The exploitation of RuoYi vulnerability has been basically completed
+- 智能框架识别：基于HTTP响应特征自动识别Web应用程序框架，支持1000+框架POC检测
+- 自动化漏洞扫描：集成大量框架漏洞POC规则，支持文件上传、任意文件读取、命令执行等框架特定漏洞检测
+- 敏感路径发现：快速扫描敏感文件和目录，发现潜在的信息泄露点
+- 多线程并发扫描：支持高效的并发扫描，提升检测速度和覆盖范围
+- 灵活的配置管理：支持自定义扫描规则、黑白名单配置、线程数调节等个性化设置
+- 实时检测日志：提供详细的扫描结果记录和漏洞管理面板
+- DNSLog支持：集成CEYE平台，支持反连检测和盲注验证
+- 智能流量过滤：基于MIME类型黑名单机制，精准过滤扫描目标
 - ······
 
-[![Stargazers over time](https://starchart.cc/Naereen/badges.svg)](https://starchart.cc/Naereen/badges)
+## 📋 支持的CMS
+
+|  |  |  |
+|:-:|:-:|:-:|
+| 泛微 E-Office | 海康威视 IVMS | 宝塔面板 |
+| 泛微 E-Cology | 海康威视综合安防管理平台 | 禅道项目管理系统 |
+| 泛微云桥 e-Bridge | 海康威视安全接入网关 | 帆软报表 |
+| 用友 U8 Cloud | 深信服应用交付管理系统 | 润乾报表系统 |
+| 用友 NC Cloud | 深信服终端检测响应平台 | 通达 OA |
+| 若依管理系统 | 致远 OA | 广联达 OA |
+| 红帆 iOffice | 易宝 OA | 宏景 HCM |
+| 昂捷 ERP/CRM | 飞企互联办公系统 | 智慧校园管理系统 |
+| 正方数字化校园平台 | 时空智友企业流程化管控系统 | 大华智慧园区综合管理平台 |
+| 大华 ICC智能物联综合管理平台 | 奥威亚视频云平台 | Apache Struts2 |
+| ...... | ...... | ...... |
