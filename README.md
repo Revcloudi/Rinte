@@ -2,7 +2,7 @@
 
 
 
-[![Generic badge](https://img.shields.io/badge/Java-17-<COLOR>.svg)](https://shields.io/)[![Generic badge](https://img.shields.io/badge/BurpSuite-Extensions-<COLOR>.svg)](https://shields.io/)![Generic badge](https://img.shields.io/badge/Framework-Detection-<COLOR>.svg)[![Generic badge](https://img.shields.io/badge/SupportPOC-1000+-<COLOR>.svg)](https://shields.io/)![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)[![GitHub stars](https://img.shields.io/github/stars/Naereen/StrapDown.js.svg?style=social&label=Star&maxAge=000000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
+[![Generic badge](https://img.shields.io/badge/Java-17-<COLOR>.svg)](https://shields.io/)[![Generic badge](https://img.shields.io/badge/BurpSuite-Extensions-<COLOR>.svg)](https://shields.io/)![Generic badge](https://img.shields.io/badge/Framework-Detection-<COLOR>.svg)[![Generic badge](https://img.shields.io/badge/SupportPOC-1000+-<COLOR>.svg)](https://shields.io/)![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)
 
 ## 📖 简介
 
